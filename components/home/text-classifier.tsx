@@ -14,11 +14,11 @@ interface ClassScore {
 // UI Component
 // ──────────────────────────────────────────────────────────────────────
 const EXAMPLES = [
-   'The book describes cultivation techniques for wheat and rice farming in India.',
-   'This annual report covers the ministry\'s budget and expenditure for the fiscal year.',
-   'Traditional herbal knowledge passed down from ancestors in indigenous communities.',
-   'Tomato and mango orchard management with modern pruning and grafting techniques.',
-   'Survey findings and statistical analysis from monitoring agricultural progress.',
+   "Guidelines for authors regarding Indian Farming, focusing on crop cultivation and agricultural practices.",
+   "Advancements in horticulture, including fruit orchards, vegetables, and new tomato cultivation techniques.",
+   "This book publication reflects on startups in agricultural research, featuring multiple chapters and indexes.",
+   "Indigenous technical knowledge about tribal traditional medicine, medicinal plants, and rural agriculture.",
+   "The annual report contains the financial statements and yearly budget review of the agricultural institute."
 ];
 
 export const TextClassifier = () => {
