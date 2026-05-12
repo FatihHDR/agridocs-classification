@@ -56,10 +56,10 @@ export const SidebarWrapper = () => {
                   </Box>
                   <Box>
                      <Box css={{color: '$accents9', fontWeight: '$semibold', fontSize: '$lg', lineHeight: 1.2}}>
-                        NLP Dashboard
+                        AgriDocs
                      </Box>
                      <Box css={{color: '$accents6', fontSize: '$xs', lineHeight: 1.2}}>
-                        ICAR Agriculture
+                        ICAR Classification
                      </Box>
                   </Box>
                </Flex>
