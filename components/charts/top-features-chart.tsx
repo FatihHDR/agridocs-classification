@@ -22,19 +22,14 @@ const options: Props['options'] = {
          show: false,
       },
    },
-   colors: ['#6366f1'],
    plotOptions: {
       bar: {
          horizontal: true,
          borderRadius: 4,
-         distributed: true,
+         distributed: false,
       },
    },
-   colors: [
-      '#6366f1', '#7c3aed', '#06b6d4', '#10b981', '#f59e0b',
-      '#ef4444', '#8b5cf6', '#3b82f6', '#14b8a6', '#f97316',
-      '#a78bfa', '#34d399', '#fbbf24', '#f87171', '#60a5fa',
-   ],
+   colors: ['#3b82f6'],
    xaxis: {
       categories: features,
       labels: {

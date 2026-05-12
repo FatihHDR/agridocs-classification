@@ -22,22 +22,23 @@ const EXAMPLES = [
 ];
 
 export const TextClassifier = () => {
-   const [inputText, setInputText] = useState('');
-   const [results, setResults] = useState<ClassScore[] | null>(null);
-   const [loading, setLoading] = useState(false);
-   const [charCount, setCharCount] = useState(0);
+   const [inputText, setInputText] = React.useState('');
+   const [loading, setLoading] = React.useState(false);
+   const [results, setResults] = React.useState<ClassScore[] | null>(null);
+   const [charCount, setCharCount] = React.useState(0);
+   const [method, setMethod] = React.useState('tfidf');
 
    const handleClassify = useCallback(async () => {
       if (!inputText.trim()) return;
       setLoading(true);
       
       try {
-         const response = await fetch('http://127.0.0.1:8001/classify', {
+         const response = await fetch('http://127.0.0.1:8002/classify', {
             method: 'POST',
             headers: {
                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ text: inputText }),
+            body: JSON.stringify({ text: inputText, method }),
          });
          
          if (!response.ok) {
@@ -76,7 +77,30 @@ export const TextClassifier = () => {
             <Card.Body css={{py: '$6', px: '$8'}}>
                <Flex align={'center'} justify={'between'} css={{mb: '$4'}}>
                   <Text b css={{color: '$accents9', fontSize: '$md'}}>Teks Input</Text>
-                  <Text span css={{color: '$accents6', fontSize: '$xs'}}>{charCount} karakter</Text>
+                  <Flex align={'center'} css={{gap: '$4'}}>
+                     <select
+                        value={method}
+                        onChange={(e) => {
+                           setMethod(e.target.value);
+                           setResults(null);
+                        }}
+                        style={{
+                           padding: '6px 12px',
+                           borderRadius: '8px',
+                           border: '1px solid var(--nextui-colors-border)',
+                           background: 'var(--nextui-colors-accents1)',
+                           color: 'var(--nextui-colors-accents9)',
+                           fontSize: '12px',
+                           outline: 'none',
+                           fontFamily: 'Inter, sans-serif',
+                           cursor: 'pointer',
+                        }}
+                     >
+                        <option value="tfidf">TF-IDF + SVM</option>
+                        <option value="fasttext">FastText + SVM</option>
+                     </select>
+                     <Text span css={{color: '$accents6', fontSize: '$xs'}}>{charCount} karakter</Text>
+                  </Flex>
                </Flex>
 
                {/* Textarea wrapper using plain HTML since NextUI Textarea has controlled issues */}
@@ -322,7 +346,7 @@ export const TextClassifier = () => {
                      }}
                   >
                      <Text css={{color: '$accents5', fontSize: '11px'}}>
-                        <em>Catatan: Menggunakan model SVM + TF-IDF (1000 features) yang dilatih dengan ICAR Agriculture Dataset. Data dilayani via FastAPI.</em>
+                        <em>Catatan: Menggunakan model {method === 'tfidf' ? 'TF-IDF' : 'FastText'} + SVM yang dilatih dengan ICAR Agriculture Dataset. Data dilayani via FastAPI.</em>
                      </Text>
                   </Box>
                </Card.Body>

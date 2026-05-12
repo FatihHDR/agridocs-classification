@@ -22,10 +22,10 @@ const FeaturesPage: NextPage = () => {
          {/* Stats row */}
          <Flex css={{gap: '$8', flexWrap: 'wrap', mb: '$12'}} direction={'row'}>
             {[
-               {label: 'Total Fitur TF-IDF', value: '1,000', sub: 'Fitur dipilih', color: '#6366f1'},
-               {label: 'Fitur Teratas', value: 'yield', sub: 'Score: 0.04536', color: '#8b5cf6'},
-               {label: 'Metode Seleksi', value: 'Mean TF-IDF', sub: 'Top-k selection', color: '#06b6d4'},
-               {label: 'N-gram Range', value: '(1,2)', sub: 'Unigram + Bigram', color: '#10b981'},
+               {label: 'Total Fitur TF-IDF', value: '1,000', sub: 'Fitur dipilih', color: '#2563eb'},
+               {label: 'Fitur Teratas', value: 'yield', sub: 'Score: 0.04536', color: '#1d4ed8'},
+               {label: 'Metode Seleksi', value: 'Mean TF-IDF', sub: 'Top-k selection', color: '#475569'},
+               {label: 'N-gram Range', value: '(1,2)', sub: 'Unigram + Bigram', color: '#64748b'},
             ].map((stat) => (
                <Card
                   key={stat.label}
@@ -107,8 +107,8 @@ const FeaturesPage: NextPage = () => {
                                  padding: '2px 8px',
                                  borderRadius: '8px',
                                  fontSize: '11px',
-                                 background: 'rgba(99, 102, 241, 0.1)',
-                                 color: '#6366f1',
+                                 background: 'rgba(59, 130, 246, 0.1)',
+                                 color: '#3b82f6',
                                  fontWeight: 600,
                               }}>
                                  {row.ngramSize}-gram
@@ -161,11 +161,11 @@ const FeaturesPage: NextPage = () => {
          {/* BoW Info */}
          <Card css={{
             borderRadius: '$xl',
-            bg: 'linear-gradient(135deg, #6366f110, #8b5cf610)',
-            border: '1px solid #6366f130',
+            bg: '$accents0',
+            border: '1px solid $accents2',
          }}>
             <Card.Body css={{py: '$6', px: '$8'}}>
-               <Text b css={{mb: '$3', color: '$accents9'}}>📊 Tentang Ekstraksi Fitur</Text>
+               <Text b css={{mb: '$3', color: '$accents9'}}>Tentang Ekstraksi Fitur</Text>
                <Flex css={{gap: '$8', flexWrap: 'wrap'}}>
                   <Flex direction={'column'} css={{flex: 1, minWidth: '200px', gap: '$2'}}>
                      <Text b css={{color: '$accents8', fontSize: '$sm'}}>TF-IDF</Text>
