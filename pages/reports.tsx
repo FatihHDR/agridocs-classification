@@ -55,37 +55,37 @@ const ReportsPage: NextPage = () => {
             {[
                {
                   title: '1. Data Collection',
-                  icon: '📚',
+                  icon: '01',
                   content: `${datasetInfo.totalDocs} dokumen dari ${datasetInfo.categories} kategori dataset ICAR Agriculture`,
                   color: '#6366f1',
                },
                {
                   title: '2. Preprocessing',
-                  icon: '🔧',
+                  icon: '02',
                   content: 'Lowercasing, tokenisasi, stopword removal, stemming/lemmatization',
                   color: '#8b5cf6',
                },
                {
                   title: '3. Augmentasi',
-                  icon: '🔄',
+                  icon: '03',
                   content: `Back-translation (ID→EN→ID) menghasilkan ${datasetInfo.totalDocsAugmented} dokumen (54 per kelas)`,
                   color: '#06b6d4',
                },
                {
                   title: '4. Ekstraksi Fitur',
-                  icon: '🎯',
+                  icon: '04',
                   content: 'TF-IDF dengan 1000 fitur, BoW + n-gram (1,2). Fitur utama: "yield", "farming", "pradesh"',
                   color: '#10b981',
                },
                {
                   title: '5. Word Embedding',
-                  icon: '🕸️',
+                  icon: '05',
                   content: `4 model: Word2Vec CBOW, Word2Vec Skip-gram, GloVe, FastText. Dimensi: 100D`,
                   color: '#f59e0b',
                },
                {
                   title: '6. Klasifikasi',
-                  icon: '🏆',
+                  icon: '06',
                   content: `TF-IDF + SVM: Accuracy 84.7%, F1 84.3%. Kelas terbaik: "Annual Reports" (F1: 87%)`,
                   color: '#ef4444',
                },
@@ -102,7 +102,7 @@ const ReportsPage: NextPage = () => {
                >
                   <Card.Body css={{py: '$6', px: '$6'}}>
                      <Flex css={{gap: '$3', mb: '$3'}} align={'center'}>
-                        <Text css={{fontSize: '1.5rem'}}>{item.icon}</Text>
+                        <Text b css={{fontSize: '1rem', color: item.color}}>{item.icon}</Text>
                         <Text b css={{color: '$accents9', fontSize: '$sm'}}>{item.title}</Text>
                      </Flex>
                      <Text css={{color: '$accents6', fontSize: '$xs', lineHeight: 1.6}}>
@@ -185,10 +185,10 @@ const ReportsPage: NextPage = () => {
                               {model.dimensions}D
                            </td>
                            <td style={{padding: '14px 20px', color: 'var(--nextui-colors-accents7)', fontSize: '13px'}}>
-                              ✅ {model.pros}
+                              + {model.pros}
                            </td>
                            <td style={{padding: '14px 20px', color: 'var(--nextui-colors-accents7)', fontSize: '13px'}}>
-                              ⚠️ {model.cons}
+                              - {model.cons}
                            </td>
                         </tr>
                      ))}
@@ -205,7 +205,7 @@ const ReportsPage: NextPage = () => {
          }}>
             <Card.Body css={{py: '$8', px: '$8'}}>
                <Text b css={{mb: '$4', color: '$accents9', fontSize: '$lg'}}>
-                  🎯 Kesimpulan
+                  Kesimpulan
                </Text>
                <Text css={{color: '$accents7', fontSize: '$sm', lineHeight: 1.8}}>
                   Pipeline NLP yang diimplementasikan berhasil mengklasifikasikan dokumen pertanian ICAR ke dalam 

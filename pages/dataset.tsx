@@ -25,10 +25,10 @@ const DatasetPage: NextPage = () => {
          {/* Dataset stats */}
          <Flex css={{gap: '$8', flexWrap: 'wrap', mb: '$12'}} direction={'row'}>
             {[
-               {label: 'Total Dokumen Asli', value: datasetInfo.totalDocs, color: '#6366f1', icon: '📄'},
-               {label: 'Setelah Augmentasi', value: datasetInfo.totalDocsAugmented, color: '#10b981', icon: '🔄'},
-               {label: 'Jumlah Kategori', value: datasetInfo.categories, color: '#f59e0b', icon: '🏷️'},
-               {label: 'Docs per Kelas (setelah aug)', value: 54, color: '#8b5cf6', icon: '⚖️'},
+               {label: 'Total Dokumen Asli', value: datasetInfo.totalDocs, color: '#6366f1', icon: 'DOC'},
+               {label: 'Setelah Augmentasi', value: datasetInfo.totalDocsAugmented, color: '#10b981', icon: 'AUG'},
+               {label: 'Jumlah Kategori', value: datasetInfo.categories, color: '#f59e0b', icon: 'CAT'},
+               {label: 'Docs per Kelas (setelah aug)', value: 54, color: '#8b5cf6', icon: 'BAL'},
             ].map((stat) => (
                <Card
                   key={stat.label}
@@ -41,7 +41,7 @@ const DatasetPage: NextPage = () => {
                   }}
                >
                   <Card.Body css={{py: '$8', px: '$8'}}>
-                     <Text css={{fontSize: '1.8rem', mb: '$1'}}>{stat.icon}</Text>
+                     <Text css={{fontSize: '1rem', fontWeight: 600, color: '$accents6', mb: '$1'}}>{stat.icon}</Text>
                      <Text css={{
                         fontSize: '2rem',
                         fontWeight: 700,

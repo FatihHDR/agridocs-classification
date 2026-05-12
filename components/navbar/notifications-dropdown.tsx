@@ -36,21 +36,21 @@ export const NotificationsDropdown = () => {
                   showFullDescription
                   description="Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim."
                >
-                  📣 Edit your information
+                  Edit your information
                </Dropdown.Item>
                <Dropdown.Item
                   key="2"
                   showFullDescription
                   description="Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim."
                >
-                  🚀 Say goodbye to paper receipts!
+                  Say goodbye to paper receipts!
                </Dropdown.Item>
                <Dropdown.Item
                   key="3"
                   showFullDescription
                   description="Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim."
                >
-                  📣 Edit your information
+                  Edit your information
                </Dropdown.Item>
             </Dropdown.Section>
          </Dropdown.Menu>
