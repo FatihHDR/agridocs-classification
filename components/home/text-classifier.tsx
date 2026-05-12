@@ -33,7 +33,8 @@ export const TextClassifier = () => {
       setLoading(true);
       
       try {
-         const response = await fetch('http://127.0.0.1:8002/classify', {
+         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8001';
+         const response = await fetch(`${apiUrl}/classify`, {
             method: 'POST',
             headers: {
                'Content-Type': 'application/json',
