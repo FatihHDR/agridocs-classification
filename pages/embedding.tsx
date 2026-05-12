@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import type {NextPage} from 'next';
 import React from 'react';
 import {Text, Card, Badge} from '@nextui-org/react';

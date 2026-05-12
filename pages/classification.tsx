@@ -57,7 +57,6 @@ const ClassificationPage: NextPage = () => {
                         css={{
                            fontSize: '2.5rem',
                            fontWeight: 700,
-                           fontWeight: 700,
                            color: m.color,
                            lineHeight: 1,
                            mb: '$2',

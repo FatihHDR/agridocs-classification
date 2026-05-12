@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import type {NextPage} from 'next';
 import React from 'react';
 import {Text, Card} from '@nextui-org/react';
@@ -134,7 +135,7 @@ const DatasetPage: NextPage = () => {
                      {step: '5', name: 'Augmentation', desc: 'Back-translation ID→EN→ID'},
                      {step: '6', name: 'Vectorization', desc: 'TF-IDF & BoW representation'},
                   ].map((s) => (
-                     <Flex key={s.step} css={{flex: 1, minWidth: '250px', gap: '$4'}} align={'flex-start'}>
+                     <Flex key={s.step} css={{flex: 1, minWidth: '250px', gap: '$4'}} align={'start'}>
                         <Flex align={'center'} justify={'center'} css={{
                            width: '32px',
                            height: '32px',

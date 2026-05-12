@@ -54,7 +54,7 @@ export const TextClassifier = () => {
       } finally {
          setLoading(false);
       }
-   }, [inputText]);
+   }, [inputText, method]);
 
    const handleExample = (example: string) => {
       setInputText(example);
