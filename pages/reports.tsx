@@ -117,7 +117,7 @@ const ReportsPage: NextPage = () => {
          <Text h3 css={{mb: '$6'}}>Perbandingan Model Embedding</Text>
          <Card css={{borderRadius: '$xl', bg: '$accents0', mb: '$12'}}>
             <Card.Body css={{p: 0}}>
-               <table style={{width: '100%', borderCollapse: 'collapse', fontFamily: 'Inter, sans-serif'}}>
+               <table style={{width: '100%', borderCollapse: 'collapse', fontFamily: 'Montserrat, sans-serif'}}>
                   <thead>
                      <tr style={{borderBottom: '1px solid var(--nextui-colors-border)'}}>
                         {['Model', 'Algoritma', 'Dimensi', 'Kelebihan', 'Kekurangan'].map((h) => (

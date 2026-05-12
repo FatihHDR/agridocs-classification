@@ -21,7 +21,7 @@ const state: Props['series'] = [
 const options: Props['options'] = {
    chart: {
       type: 'bar',
-      fontFamily: 'Inter, sans-serif',
+      fontFamily: 'Montserrat, sans-serif',
       foreColor: 'var(--nextui-colors-accents9)',
       stacked: true,
       toolbar: {
@@ -41,7 +41,7 @@ const options: Props['options'] = {
       labels: {
          style: {
             colors: 'var(--nextui-colors-accents8)',
-            fontFamily: 'Inter, sans-serif',
+            fontFamily: 'Montserrat, sans-serif',
             fontSize: '11px',
          },
          rotate: -20,
@@ -57,14 +57,14 @@ const options: Props['options'] = {
       labels: {
          style: {
             colors: 'var(--nextui-colors-accents8)',
-            fontFamily: 'Inter, sans-serif',
+            fontFamily: 'Montserrat, sans-serif',
          },
       },
       title: {
          text: 'Jumlah Dokumen',
          style: {
             color: 'var(--nextui-colors-accents8)',
-            fontFamily: 'Inter, sans-serif',
+            fontFamily: 'Montserrat, sans-serif',
          },
       },
    },

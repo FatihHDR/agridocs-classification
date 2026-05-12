@@ -1,5 +1,6 @@
 import '../styles/globals.css';
 import type {AppProps} from 'next/app';
+import Head from 'next/head';
 import {createTheme, NextUIProvider} from '@nextui-org/react';
 import {ThemeProvider as NextThemesProvider} from 'next-themes';
 import {Layout} from '../components/layout/layout';
@@ -28,6 +29,9 @@ function MyApp({Component, pageProps}: AppProps) {
             dark: darkTheme.className,
          }}
       >
+         <Head>
+            <title>AgriDoc Classification</title>
+         </Head>
          <NextUIProvider>
             <Layout>
                <Component {...pageProps} />

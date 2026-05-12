@@ -95,7 +95,7 @@ const ClassificationPage: NextPage = () => {
          <Text h3 css={{mb: '$6'}}>Detail Klasifikasi Per Kelas</Text>
          <Card css={{borderRadius: '$xl', bg: '$accents0', mb: '$12'}}>
             <Card.Body css={{p: 0, overflow: 'hidden'}}>
-               <table style={{width: '100%', borderCollapse: 'collapse', fontFamily: 'Inter, sans-serif'}}>
+               <table style={{width: '100%', borderCollapse: 'collapse', fontFamily: 'Montserrat, sans-serif'}}>
                   <thead>
                      <tr style={{borderBottom: '1px solid var(--nextui-colors-border)'}}>
                         {['Kelas', 'Precision', 'Recall', 'F1-Score', 'Support', 'Status'].map((h) => (

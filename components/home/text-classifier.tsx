@@ -93,7 +93,7 @@ export const TextClassifier = () => {
                            color: 'var(--nextui-colors-accents9)',
                            fontSize: '12px',
                            outline: 'none',
-                           fontFamily: 'Inter, sans-serif',
+                           fontFamily: 'Montserrat, sans-serif',
                            cursor: 'pointer',
                         }}
                      >
@@ -127,7 +127,7 @@ export const TextClassifier = () => {
                         fontSize: '14px',
                         lineHeight: 1.6,
                         resize: 'vertical',
-                        fontFamily: 'Inter, sans-serif',
+                        fontFamily: 'Montserrat, sans-serif',
                         outline: 'none',
                         transition: 'border-color 0.2s',
                         boxSizing: 'border-box',
@@ -152,7 +152,7 @@ export const TextClassifier = () => {
                            color: 'var(--nextui-colors-accents7)',
                            fontSize: '11px',
                            cursor: 'pointer',
-                           fontFamily: 'Inter, sans-serif',
+                           fontFamily: 'Montserrat, sans-serif',
                            transition: 'all 0.2s',
                         }}
                         onMouseEnter={(e) => {
@@ -188,7 +188,7 @@ export const TextClassifier = () => {
                         fontSize: '14px',
                         fontWeight: 600,
                         cursor: inputText.trim() && !loading ? 'pointer' : 'not-allowed',
-                        fontFamily: 'Inter, sans-serif',
+                        fontFamily: 'Montserrat, sans-serif',
                         transition: 'all 0.2s',
                         display: 'flex',
                         alignItems: 'center',
@@ -208,7 +208,7 @@ export const TextClassifier = () => {
                            color: 'var(--nextui-colors-accents7)',
                            fontSize: '14px',
                            cursor: 'pointer',
-                           fontFamily: 'Inter, sans-serif',
+                           fontFamily: 'Montserrat, sans-serif',
                         }}
                      >
                         Hapus

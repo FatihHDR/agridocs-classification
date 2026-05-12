@@ -24,7 +24,7 @@ const state: Props['series'] = [
 const options: Props['options'] = {
    chart: {
       type: 'bar',
-      fontFamily: 'Inter, sans-serif',
+      fontFamily: 'Montserrat, sans-serif',
       foreColor: 'var(--nextui-colors-accents9)',
       toolbar: {
          show: false,
@@ -43,7 +43,7 @@ const options: Props['options'] = {
       labels: {
          style: {
             colors: 'var(--nextui-colors-accents8)',
-            fontFamily: 'Inter, sans-serif',
+            fontFamily: 'Montserrat, sans-serif',
             fontSize: '11px',
          },
          rotate: -15,
@@ -58,7 +58,7 @@ const options: Props['options'] = {
       labels: {
          style: {
             colors: 'var(--nextui-colors-accents8)',
-            fontFamily: 'Inter, sans-serif',
+            fontFamily: 'Montserrat, sans-serif',
          },
          formatter: (val: number) => `${val}%`,
       },
