@@ -14,6 +14,12 @@ const TopFeaturesChart = dynamic(
    {ssr: false}
 );
 
+         {/* Dynamically import chart to avoid SSR issues */}
+const EmbeddingEvaluationChart = dynamic(
+   () => import('../components/charts/embedding-evaluation-chart').then((mod) => mod.EmbeddingEvaluationChart),
+   {ssr: false}
+);
+
 const EmbeddingPage: NextPage = () => {
    const [previewImage, setPreviewImage] = React.useState<string | null>(null);
 
@@ -178,6 +184,21 @@ const EmbeddingPage: NextPage = () => {
                      ))}
                   </tbody>
                </table>
+            </Card.Body>
+         </Card>
+
+         <Text h3 css={{mt: '$12', mb: '$6'}}>Evaluasi Model ML + Word Embedding</Text>
+         <Card css={{borderRadius: '$xl', bg: '$accents0', border: '1px solid $accents2', mb: '$10'}}>
+            <Card.Header css={{p: '$8', pb: '$0'}}>
+               <Flex direction="column" css={{gap: '$2'}}>
+                  <Text h4 css={{m: 0}}>Akurasi, Presisi, dan F1-Score</Text>
+                  <Text span css={{color: '$accents7', fontSize: '$sm'}}>
+                     Perbandingan performa Decision Tree (DT) dan Naive Bayes (NB) dengan berbagai macam Embedding Features 
+                  </Text>
+               </Flex>
+            </Card.Header>
+            <Card.Body css={{p: '$8', pt: '$4'}}>
+               <EmbeddingEvaluationChart />
             </Card.Body>
          </Card>
 
