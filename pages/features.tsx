@@ -195,11 +195,17 @@ const FeaturesPage: NextPage = () => {
          </Card>
 
          <Flex css={{mt: '$12', mb: '$6'}} justify="between" align="center">
-             <Text h3 css={{m: 0}}>Matrix Detail Infographic (Naive Bayes + Classic Features)</Text>
+             <Text h3 css={{m: 0}}>Matrix Detail Infographic (SVM, Decision Tree & Naive Bayes)</Text>
          </Flex>
 
          <Grid.Container gap={2} justify="flex-start" css={{mb: '$10'}}>
             {[
+               { title: 'SVM + TF-IDF (97%)', img: '/cm_mitigated.png' },
+               { title: 'SVM + BoW', img: '/cm_svm_BoW.png' },
+               { title: 'SVM + N-Gram', img: '/cm_svm_N-Gram_1-2.png' },
+               { title: 'Decision Tree + TF-IDF', img: '/output/confusion_matrices/cm_dt_tfidf.png' },
+               { title: 'Decision Tree + BoW', img: '/output/confusion_matrices/cm_dt_bow.png' },
+               { title: 'Decision Tree + N-Gram', img: '/output/confusion_matrices/cm_dt_ngram.png' },
                { title: 'Naive Bayes + TF-IDF', img: '/output/confusion_matrices/cm_nb_tfidf.png' },
                { title: 'Naive Bayes + BoW', img: '/output/confusion_matrices/cm_nb_bow.png' },
                { title: 'Naive Bayes + N-Gram', img: '/output/confusion_matrices/cm_nb_ngram.png' },

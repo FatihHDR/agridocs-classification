@@ -208,6 +208,10 @@ const EmbeddingPage: NextPage = () => {
 
          <Grid.Container gap={2} justify="center">
             {[
+               { title: 'SVM + W2V Skip-Gram', img: '/cm_svm_W2V-SG.png' },
+               { title: 'SVM + FastText', img: '/cm_svm_FastText.png' },
+               { title: 'SVM + W2V CBOW', img: '/cm_svm_W2V-CBOW.png' },
+               { title: 'SVM + GloVe', img: '/cm_svm_GloVe.png' },
                { title: 'Decision Tree + W2V Skip-Gram', img: '/output/confusion_matrices/cm_dt_w2v_skip_gram.png' },
                { title: 'Naive Bayes + W2V Skip-Gram', img: '/output/confusion_matrices/cm_nb_w2v_skip_gram.png' },
                { title: 'Decision Tree + FastText', img: '/output/confusion_matrices/cm_dt_fasttext.png' },
