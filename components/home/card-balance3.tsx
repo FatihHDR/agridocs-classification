@@ -25,7 +25,7 @@ export const CardClassificationScore = () => {
                      Klasifikasi Teks
                   </Text>
                   <Text span css={{color: 'rgba(255,255,255,0.7)'}} size={'$xs'}>
-                     TF-IDF + SVM
+                     BoW + Naive Bayes
                   </Text>
                </Flex>
             </Flex>

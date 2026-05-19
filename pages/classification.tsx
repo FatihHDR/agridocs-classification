@@ -39,7 +39,7 @@ const ClassificationPage: NextPage = () => {
          <Box css={{my: '$12', borderTop: '1px solid $accents2'}} />
 
          {/* Overall Metrics */}
-         <Text h3 css={{mb: '$6'}}>Metrik Keseluruhan — TF-IDF + SVM</Text>
+         <Text h3 css={{mb: '$6'}}>Metrik Keseluruhan — BoW + Naive Bayes</Text>
          <Flex css={{gap: '$8', flexWrap: 'wrap', mb: '$12'}} direction={'row'}>
             {metrics.map((m) => (
                <Card
@@ -185,8 +185,8 @@ const ClassificationPage: NextPage = () => {
             <Card.Body css={{py: '$6', px: '$8'}}>
                <Text b css={{mb: '$2', color: '$accents9'}}>Catatan Metodologi</Text>
                <Text css={{color: '$accents7', fontSize: '$sm', lineHeight: 1.6}}>
-                  Hasil klasifikasi di atas menggunakan metode <strong>TF-IDF dengan 1000 fitur terpilih</strong> 
-                  dikombinasikan dengan classifier SVM (Support Vector Machine). 
+                  Hasil klasifikasi di atas menggunakan metode <strong>BoW (Bag of Words) dengan 1000 fitur terpilih</strong> 
+                  dikombinasikan dengan classifier Naive Bayes (MultinomialNB). 
                   Dataset telah di-augmentasi menggunakan <strong>back-translation</strong> (ID→EN→ID) untuk menyeimbangkan 
                   distribusi kelas dari 159 menjadi 324 dokumen (54 per kelas).
                </Text>

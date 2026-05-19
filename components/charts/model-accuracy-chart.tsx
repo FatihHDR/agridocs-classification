@@ -6,11 +6,11 @@ const categories = ['60% / 40%', '70% / 30%', '80% / 20%', '90% / 10%'];
 
 const state: Props['series'] = [
    {
-      name: 'TF-IDF + SVM',
+      name: 'BoW + Naive Bayes',
       data: [78.5, 81.2, 84.7, 85.1],
    },
    {
-      name: 'FastText + SVM',
+      name: 'N-Gram + Decision Tree',
       data: [75.2, 79.1, 82.3, 83.5],
    },
    {

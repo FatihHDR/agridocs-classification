@@ -101,18 +101,18 @@ export const augmentationImpact = [
 // (akan diupdate ketika ada hasil aktual dari notebook)
 export const classificationResults = {
   tfidf: {
-    method: 'TF-IDF + SVM',
-    accuracy: 0.847,
-    precision: 0.841,
-    recall: 0.847,
-    f1Score: 0.843,
+    method: 'BoW + Naive Bayes',
+    accuracy: 0.785,
+    precision: 0.810,
+    recall: 0.780,
+    f1Score: 0.770,
     perClass: [
-      { label: 'Annual Reports', precision: 0.89, recall: 0.85, f1: 0.87, support: 11 },
-      { label: 'Indian Farming', precision: 0.82, recall: 0.88, f1: 0.85, support: 11 },
-      { label: 'Indian Horticulture', precision: 0.91, recall: 0.82, f1: 0.86, support: 11 },
-      { label: 'Books', precision: 0.79, recall: 0.82, f1: 0.80, support: 11 },
-      { label: 'Reports', precision: 0.88, recall: 0.90, f1: 0.89, support: 11 },
-      { label: 'Traditional Knowledge', precision: 0.77, recall: 0.73, f1: 0.75, support: 11 },
+      { label: 'Annual Reports', precision: 0.67, recall: 0.60, f1: 0.63, support: 10 },
+      { label: 'Indian Farming', precision: 0.75, recall: 0.82, f1: 0.78, support: 11 },
+      { label: 'Indian Horticulture', precision: 0.85, recall: 1.00, f1: 0.92, support: 11 },
+      { label: 'Traditional Knowledge', precision: 0.73, recall: 1.00, f1: 0.85, support: 11 },
+      { label: 'Books', precision: 1.00, recall: 0.36, f1: 0.53, support: 11 },
+      { label: 'Reports', precision: 0.83, recall: 0.91, f1: 0.87, support: 11 },
     ],
   },
 };

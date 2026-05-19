@@ -86,7 +86,7 @@ const ReportsPage: NextPage = () => {
                {
                   title: '6. Klasifikasi',
                   icon: '06',
-                  content: `TF-IDF + SVM: Accuracy 84.7%, F1 84.3%. Kelas terbaik: "Annual Reports" (F1: 87%)`,
+                  content: `BoW + Naive Bayes: Accuracy 78.5%, F1 77.0%. Kelas terbaik: "Indian Horticulture" (F1: 92%)`,
                   color: '#ef4444',
                },
             ].map((item) => (
@@ -209,7 +209,7 @@ const ReportsPage: NextPage = () => {
                </Text>
                <Text css={{color: '$accents7', fontSize: '$sm', lineHeight: 1.8}}>
                   Pipeline NLP yang diimplementasikan berhasil mengklasifikasikan dokumen pertanian ICAR ke dalam 
-                  6 kategori dengan akurasi <strong>84.7%</strong> menggunakan TF-IDF + SVM. Augmentasi data 
+                  6 kategori dengan akurasi <strong>78.5%</strong> menggunakan BoW + Naive Bayes. Augmentasi data 
                   back-translation berhasil menyeimbangkan distribusi kelas dari kondisi imbalanced (7–54 dokumen) 
                   menjadi balanced (54 dokumen per kelas). Keempat model word embedding (W2Vec CBOW, W2Vec Skip-gram, 
                   GloVe, FastText) berhasil diimplementasikan dengan dimensi 100D dan menghasilkan representasi 
