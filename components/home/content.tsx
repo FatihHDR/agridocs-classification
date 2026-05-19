@@ -207,5 +207,46 @@ export const Content = () => (
          </Flex>
          <TableWrapper />
       </Flex>
+
+      {/* Confusion Matrix Section */}
+      <Flex
+         direction={'column'}
+         justify={'center'}
+         css={{
+            'width': '100%',
+            'py': '$10',
+            'px': '$10',
+            'mt': '$4',
+            'mb': '$10',
+            '@sm': {px: '$20'},
+            'alignItems': 'center',
+         }}
+      >
+         <Text
+            h3
+            css={{
+               'textAlign': 'center',
+               'mb': '$6'
+            }}
+         >
+            Confusion Matrix: SVM + TF-IDF (97%)
+         </Text>
+         <Box css={{ 
+            width: '100%', 
+            maxWidth: '800px', 
+            bg: '$accents0', 
+            borderRadius: '$2xl', 
+            p: '$8', 
+            boxShadow: '$lg',
+            display: 'flex',
+            justifyContent: 'center'
+         }}>
+            <img 
+               src="/cm_mitigated.png" 
+               alt="Confusion Matrix" 
+               style={{ width: '100%', height: 'auto', borderRadius: '12px' }} 
+            />
+         </Box>
+      </Flex>
    </Box>
 );

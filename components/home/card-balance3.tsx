@@ -25,7 +25,7 @@ export const CardClassificationScore = () => {
                      Klasifikasi Teks
                   </Text>
                   <Text span css={{color: 'rgba(255,255,255,0.7)'}} size={'$xs'}>
-                     BoW + Naive Bayes
+                     SVM + TF-IDF (Mitigated)
                   </Text>
                </Flex>
             </Flex>
@@ -36,7 +36,7 @@ export const CardClassificationScore = () => {
                   css={{color: 'white'}}
                   weight={'semibold'}
                >
-                  84.7%
+                  96.9%
                </Text>
                <Text span css={{color: '$green400'}} size={'$sm'}>
                   Accuracy
@@ -48,7 +48,7 @@ export const CardClassificationScore = () => {
                      Precision
                   </Text>
                   <Text span size={'$sm'} css={{color: 'white'}} weight="semibold">
-                     84.1%
+                     96.0%
                   </Text>
                </Flex>
                <Flex direction="column">
@@ -56,7 +56,7 @@ export const CardClassificationScore = () => {
                      Recall
                   </Text>
                   <Text span size={'$sm'} css={{color: 'white'}} weight="semibold">
-                     84.7%
+                     98.0%
                   </Text>
                </Flex>
                <Flex direction="column">
@@ -64,7 +64,7 @@ export const CardClassificationScore = () => {
                      F1-Score
                   </Text>
                   <Text span size={'$sm'} css={{color: 'white'}} weight="semibold">
-                     84.3%
+                     97.0%
                   </Text>
                </Flex>
             </Flex>
