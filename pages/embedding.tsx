@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import type {NextPage} from 'next';
 import React from 'react';
-import {Text, Card, Badge, Modal} from '@nextui-org/react';
+import {Text, Card, Badge, Modal, Grid} from '@nextui-org/react';
 import {Box} from '../components/styles/box';
 import {Flex} from '../components/styles/flex';
 import {embeddingModels} from '../lib/nlp-data';
@@ -201,6 +201,46 @@ const EmbeddingPage: NextPage = () => {
                <EmbeddingEvaluationChart />
             </Card.Body>
          </Card>
+
+         <Flex css={{mt: '$12', mb: '$6'}} justify="between" align="center">
+             <Text h3 css={{m: 0}}>Matrix Detail Infographic</Text>
+         </Flex>
+
+         <Grid.Container gap={2} justify="center">
+            {[
+               { title: 'Decision Tree + W2V Skip-Gram', img: '/output/confusion_matrices/cm_dt_w2v_skip_gram.png' },
+               { title: 'Naive Bayes + W2V Skip-Gram', img: '/output/confusion_matrices/cm_nb_w2v_skip_gram.png' },
+               { title: 'Decision Tree + FastText', img: '/output/confusion_matrices/cm_dt_fasttext.png' },
+               { title: 'Naive Bayes + FastText', img: '/output/confusion_matrices/cm_nb_fasttext.png' },
+               { title: 'Decision Tree + W2V CBOW', img: '/output/confusion_matrices/cm_dt_w2v_cbow.png' },
+               { title: 'Naive Bayes + W2V CBOW', img: '/output/confusion_matrices/cm_nb_w2v_cbow.png' },
+               { title: 'Decision Tree + GloVe', img: '/output/confusion_matrices/cm_dt_glove.png' },
+               { title: 'Naive Bayes + GloVe', img: '/output/confusion_matrices/cm_nb_glove.png' },
+            ].map((item, idx) => (
+               <Grid xs={12} sm={6} md={3} key={idx}>
+                  <Card 
+                     isHoverable 
+                     isPressable 
+                     css={{ w: '100%', bg: '$accents0', border: '1px solid $accents2' }}
+                     onClick={() => setPreviewImage(item.img)}
+                  >
+                     <Card.Header css={{ p: '$4', zIndex: 1 }}>
+                        <Text h5 css={{ m: 0, textAlign: 'center', width: '100%' }}>{item.title}</Text>
+                     </Card.Header>
+                     <Card.Body css={{ p: 0 }}>
+                        <Card.Image
+                           src={item.img}
+                           objectFit="cover"
+                           width="100%"
+                           height={200}
+                           alt={item.title}
+                           css={{ bg: 'white', borderBottomLeftRadius: '$xl', borderBottomRightRadius: '$xl' }}
+                        />
+                     </Card.Body>
+                  </Card>
+               </Grid>
+            ))}
+         </Grid.Container>
 
          <Modal
             closeButton
