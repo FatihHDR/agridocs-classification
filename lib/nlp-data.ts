@@ -101,18 +101,16 @@ export const augmentationImpact = [
 // (akan diupdate ketika ada hasil aktual dari notebook)
 export const classificationResults = {
   tfidf: {
-    method: 'SVM + TF-IDF',
-    accuracy: 0.861,
-    precision: 0.860,
-    recall: 0.860,
-    f1Score: 0.860,
+    method: 'SVM + TF-IDF (Mitigated)',
+    accuracy: 0.969,
+    precision: 0.960,
+    recall: 0.980,
+    f1Score: 0.970,
     perClass: [
-      { label: 'Annual Reports', precision: 1.00, recall: 1.00, f1: 1.00, support: 10 },
-      { label: 'Indian Farming', precision: 0.92, recall: 1.00, f1: 0.96, support: 11 },
+      { label: 'Publications', precision: 1.00, recall: 0.94, f1: 0.97, support: 32 },
+      { label: 'Indian Farming', precision: 0.85, recall: 1.00, f1: 0.92, support: 11 },
       { label: 'Indian Horticulture', precision: 1.00, recall: 1.00, f1: 1.00, support: 11 },
-      { label: 'Traditional Knowledge', precision: 0.92, recall: 1.00, f1: 0.96, support: 11 },
-      { label: 'Books', precision: 0.75, recall: 0.55, f1: 0.63, support: 11 },
-      { label: 'Reports', precision: 0.58, recall: 0.64, f1: 0.61, support: 11 },
+      { label: 'Traditional Knowledge', precision: 1.00, recall: 1.00, f1: 1.00, support: 11 },
     ],
   },
 };
