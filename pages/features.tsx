@@ -1,6 +1,6 @@
 import type {NextPage} from 'next';
 import React from 'react';
-import {Text, Card, Badge} from '@nextui-org/react';
+import {Text, Card, Badge, Modal, Grid} from '@nextui-org/react';
 import {Box} from '../components/styles/box';
 import {Flex} from '../components/styles/flex';
 import {topFeaturesTFIDF, categoryDistribution, augmentationImpact} from '../lib/nlp-data';
@@ -11,7 +11,14 @@ const TopFeaturesChart = dynamic(
    {ssr: false}
 );
 
+const ClassicEvaluationChart = dynamic(
+   () => import('../components/charts/classic-evaluation-chart').then((mod) => mod.ClassicEvaluationChart),
+   {ssr: false}
+);
+
 const FeaturesPage: NextPage = () => {
+   const [previewImage, setPreviewImage] = React.useState<string | null>(null);
+
    return (
       <Box css={{overflow: 'hidden', height: '100%', py: '$10', px: '$12'}}>
          <Text h2 css={{mb: '$2'}}>Ekstraksi Fitur</Text>
@@ -191,6 +198,78 @@ const FeaturesPage: NextPage = () => {
                </Flex>
             </Card.Body>
          </Card>
+
+         <Flex css={{mt: '$12', mb: '$6'}} justify="between" align="center">
+             <Text h3 css={{m: 0}}>Evaluasi ML Text Features (Naive Bayes)</Text>
+         </Flex>
+
+         <Card css={{borderRadius: '$xl', bg: '$accents0', border: '1px solid $accents2', mb: '$10'}}>
+            <Card.Header css={{p: '$8', pb: '$0'}}>
+               <Flex direction="column" css={{gap: '$2'}}>
+                  <Text h4 css={{m: 0}}>Classification Reports</Text>
+                  <Text span css={{color: '$accents7', fontSize: '$sm'}}>
+                     Akurasi, Presisi, dan F1-Score untuk model Naive Bayes menggunakan representasi klasik (BoW, N-Gram, TF-IDF).
+                  </Text>
+               </Flex>
+            </Card.Header>
+            <Card.Body css={{p: '$8', pt: '$4'}}>
+               <ClassicEvaluationChart />
+            </Card.Body>
+         </Card>
+
+         <Flex css={{mt: '$12', mb: '$6'}} justify="between" align="center">
+             <Text h3 css={{m: 0}}>Matrix Detail Infographic (Naive Bayes + Classic Features)</Text>
+         </Flex>
+
+         <Grid.Container gap={2} justify="flex-start" css={{mb: '$10'}}>
+            {[
+               { title: 'Naive Bayes + TF-IDF', img: '/output/confusion_matrices/cm_nb_tfidf.png' },
+               { title: 'Naive Bayes + BoW', img: '/output/confusion_matrices/cm_nb_bow.png' },
+               { title: 'Naive Bayes + N-Gram', img: '/output/confusion_matrices/cm_nb_ngram.png' },
+            ].map((item, idx) => (
+               <Grid xs={12} sm={4} key={idx}>
+                  <Card 
+                     isHoverable 
+                     isPressable 
+                     css={{ w: '100%', bg: '$accents0', border: '1px solid $accents2' }}
+                     onClick={() => setPreviewImage(item.img)}
+                  >
+                     <Card.Header css={{ p: '$4', zIndex: 1 }}>
+                        <Text h5 css={{ m: 0, textAlign: 'center', width: '100%' }}>{item.title}</Text>
+                     </Card.Header>
+                     <Card.Body css={{ p: 0 }}>
+                        <Card.Image
+                           src={item.img}
+                           objectFit="cover"
+                           width="100%"
+                           height={250}
+                           alt={item.title}
+                           css={{ bg: 'white', borderBottomLeftRadius: '$xl', borderBottomRightRadius: '$xl' }}
+                        />
+                     </Card.Body>
+                  </Card>
+               </Grid>
+            ))}
+         </Grid.Container>
+
+         <Modal
+            closeButton
+            blur
+            open={!!previewImage}
+            onClose={() => setPreviewImage(null)}
+            width="800px"
+         >
+            <Modal.Body css={{ p: '$10' }}>
+               {previewImage && (
+                  <img
+                     src={previewImage}
+                     alt="Matrix Preview"
+                     style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
+                  />
+               )}
+            </Modal.Body>
+         </Modal>
+
       </Box>
    );
 };
