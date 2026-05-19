@@ -126,12 +126,11 @@ export const TextClassifier = () => {
                            cursor: 'pointer',
                         }}
                      >
-                        <option value="tfidf">BoW + Naive Bayes</option>
-                        <option value="fasttext">N-Gram + Decision Tree</option>
+                        <option value="tfidf">TF-IDF + SVM</option>
+                        <option value="fasttext">FastText + SVM</option>
                         <option value="dt-tfidf">TF-IDF + Decision Tree</option>
                         <option value="dt-bow">BoW + Decision Tree</option>
                         <option value="dt-ngram">N-Gram + Decision Tree</option>
-
                         <option value="nb-tfidf">TF-IDF + Naive Bayes</option>
                         <option value="nb-bow">BoW + Naive Bayes</option>
                         <option value="nb-ngram">N-Gram + Naive Bayes</option>
@@ -383,7 +382,7 @@ export const TextClassifier = () => {
                      }}
                   >
                      <Text css={{ color: '$accents5', fontSize: '11px' }}>
-                        <em>Catatan: Menggunakan model {method.includes('fasttext') ? 'N-Gram + Decision Tree' : method.includes('dt') ? method.replace('dt-', '').toUpperCase() + ' + Decision Tree' : method.includes('nb') ? method.replace('nb-', '').toUpperCase() + ' + Naive Bayes' : 'BoW + Naive Bayes'} yang dilatih dengan ICAR Agriculture Dataset. Data dilayani via FastAPI.</em>
+                        <em>Catatan: Menggunakan model {method === 'tfidf' ? 'TF-IDF + SVM' : method === 'fasttext' ? 'FastText + SVM' : method.includes('dt') ? method.replace('dt-', '').toUpperCase() + ' + Decision Tree' : method.includes('nb') ? method.replace('nb-', '').toUpperCase() + ' + Naive Bayes' : method} yang dilatih dengan ICAR Agriculture Dataset. Data dilayani via FastAPI.</em>
                      </Text>
                   </Box>
                </Card.Body>
