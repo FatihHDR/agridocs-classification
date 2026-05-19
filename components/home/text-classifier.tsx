@@ -129,7 +129,12 @@ export const TextClassifier = () => {
                         <option value="tfidf">TF-IDF + SVM</option>
                         <option value="fasttext">FastText + SVM</option>
                         <option value="dt-tfidf">TF-IDF + Decision Tree</option>
+                        <option value="dt-bow">BoW + Decision Tree</option>
+                        <option value="dt-ngram">N-Gram + Decision Tree</option>
+
                         <option value="nb-tfidf">TF-IDF + Naive Bayes</option>
+                        <option value="nb-bow">BoW + Naive Bayes</option>
+                        <option value="nb-ngram">N-Gram + Naive Bayes</option>
                      </select>
                      <Text span css={{ color: '$accents6', fontSize: '$xs' }}>{charCount} karakter</Text>
                   </Flex>

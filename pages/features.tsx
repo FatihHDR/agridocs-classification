@@ -11,11 +11,6 @@ const TopFeaturesChart = dynamic(
    {ssr: false}
 );
 
-const ClassicEvaluationChart = dynamic(
-   () => import('../components/charts/classic-evaluation-chart').then((mod) => mod.ClassicEvaluationChart),
-   {ssr: false}
-);
-
 const FeaturesPage: NextPage = () => {
    const [previewImage, setPreviewImage] = React.useState<string | null>(null);
 
@@ -196,24 +191,6 @@ const FeaturesPage: NextPage = () => {
                      </Text>
                   </Flex>
                </Flex>
-            </Card.Body>
-         </Card>
-
-         <Flex css={{mt: '$12', mb: '$6'}} justify="between" align="center">
-             <Text h3 css={{m: 0}}>Evaluasi ML Text Features (Naive Bayes)</Text>
-         </Flex>
-
-         <Card css={{borderRadius: '$xl', bg: '$accents0', border: '1px solid $accents2', mb: '$10'}}>
-            <Card.Header css={{p: '$8', pb: '$0'}}>
-               <Flex direction="column" css={{gap: '$2'}}>
-                  <Text h4 css={{m: 0}}>Classification Reports</Text>
-                  <Text span css={{color: '$accents7', fontSize: '$sm'}}>
-                     Akurasi, Presisi, dan F1-Score untuk model Naive Bayes menggunakan representasi klasik (BoW, N-Gram, TF-IDF).
-                  </Text>
-               </Flex>
-            </Card.Header>
-            <Card.Body css={{p: '$8', pt: '$4'}}>
-               <ClassicEvaluationChart />
             </Card.Body>
          </Card>
 
