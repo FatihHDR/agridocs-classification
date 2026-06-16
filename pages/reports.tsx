@@ -3,7 +3,7 @@ import React from 'react';
 import {Text, Card} from '@nextui-org/react';
 import {Box} from '../components/styles/box';
 import {Flex} from '../components/styles/flex';
-import {datasetInfo, embeddingModels, classificationResults, categoryDistribution} from '../lib/nlp-data';
+import {datasetInfo, embeddingModels} from '../lib/nlp-data';
 
 const ReportsPage: NextPage = () => {
    return (
@@ -27,14 +27,14 @@ const ReportsPage: NextPage = () => {
                <Text css={{color: 'rgba(255,255,255,0.8)', mb: '$8', fontSize: '$sm', lineHeight: 1.7}}>
                   Penelitian ini mengimplementasikan pipeline NLP lengkap pada dataset ICAR Agriculture untuk 
                   klasifikasi dokumen pertanian India ke dalam 6 kategori. Pipeline mencakup preprocessing, 
-                  augmentasi data, ekstraksi fitur, word embedding, dan klasifikasi.
+                  pemisahan data awal (train-test split), augmentasi data, ekstraksi fitur, word embedding, dan klasifikasi.
                </Text>
                <Flex css={{gap: '$12', flexWrap: 'wrap'}}>
                   {[
-                     {label: 'Dataset', value: '159 → 324 docs'},
-                     {label: 'Kategori', value: '6 kelas'},
-                     {label: 'Embedding', value: '4 model'},
-                     {label: 'Akurasi Terbaik', value: '84.7%'},
+                     {label: 'Dataset Awal', value: '159 docs'},
+                     {label: 'Training (Augmented)', value: '258 docs'},
+                     {label: 'Embedding', value: '4 model + BERT'},
+                     {label: 'Akurasi Terbaik', value: '87.50%'},
                   ].map((s) => (
                      <Flex key={s.label} direction={'column'}>
                         <Text css={{color: 'rgba(255,255,255,0.7)', fontSize: '$xs', mb: '$1'}}>
@@ -56,37 +56,37 @@ const ReportsPage: NextPage = () => {
                {
                   title: '1. Data Collection',
                   icon: '01',
-                  content: `${datasetInfo.totalDocs} dokumen dari ${datasetInfo.categories} kategori dataset ICAR Agriculture`,
+                  content: `${datasetInfo.totalDocs} dokumen dari ${datasetInfo.categories} kategori dataset ICAR Agriculture.`,
                   color: '#6366f1',
                },
                {
-                  title: '2. Preprocessing',
+                  title: '2. Preprocessing & Split',
                   icon: '02',
-                  content: 'Lowercasing, tokenisasi, stopword removal, stemming/lemmatization',
+                  content: 'Pemisahan data training dan testing (80:20 stratified) sebelum augmentasi untuk mencegah data leakage.',
                   color: '#8b5cf6',
                },
                {
                   title: '3. Augmentasi',
                   icon: '03',
-                  content: `Back-translation (ID→EN→ID) menghasilkan ${datasetInfo.totalDocsAugmented} dokumen (54 per kelas)`,
+                  content: `Back-translation 4 Rute (EN/JP/CN/RU) pada data training minoritas untuk menyeimbangkan kelas.`,
                   color: '#06b6d4',
                },
                {
                   title: '4. Ekstraksi Fitur',
                   icon: '04',
-                  content: 'TF-IDF dengan 1000 fitur, BoW + n-gram (1,2). Fitur utama: "yield", "farming", "pradesh"',
+                  content: 'TF-IDF, BoW (Unigram), dan N-Gram (Unigram+Bigram).',
                   color: '#10b981',
                },
                {
                   title: '5. Word Embedding',
                   icon: '05',
-                  content: `4 model: Word2Vec CBOW, Word2Vec Skip-gram, GloVe, FastText. Dimensi: 100D`,
+                  content: `Word2Vec (CBOW & SG), GloVe, FastText (100D), serta Contextual Embedding BERT (mBERT).`,
                   color: '#f59e0b',
                },
                {
                   title: '6. Klasifikasi',
                   icon: '06',
-                  content: `BoW + Naive Bayes: Accuracy 78.5%, F1 77.0%. Kelas terbaik: "Indian Horticulture" (F1: 92%)`,
+                  content: `TF-IDF + SVM mencapai Accuracy 87.50%, F1 92.0%. BERT + SVM mencapai Accuracy 84.38%.`,
                   color: '#ef4444',
                },
             ].map((item) => (
@@ -157,11 +157,20 @@ const ReportsPage: NextPage = () => {
                            pros: 'Menangani OOV dengan subword, robust',
                            cons: 'Ukuran model lebih besar',
                         },
+                        {
+                           name: 'mBERT',
+                           shortName: 'BERT',
+                           algorithm: 'Transformer',
+                           dimensions: 768,
+                           color: '#ef4444',
+                           pros: 'Contextual embedding, pre-trained multi-bahasa',
+                           cons: 'Lambat, butuh komputasi tinggi',
+                        }
                      ].map((model, i) => (
                         <tr
                            key={model.name}
                            style={{
-                              borderBottom: i < 3 ? '1px solid var(--nextui-colors-border)' : 'none',
+                              borderBottom: i < 4 ? '1px solid var(--nextui-colors-border)' : 'none',
                            }}
                         >
                            <td style={{padding: '14px 20px'}}>
@@ -205,15 +214,16 @@ const ReportsPage: NextPage = () => {
          }}>
             <Card.Body css={{py: '$8', px: '$8'}}>
                <Text b css={{mb: '$4', color: '$accents9', fontSize: '$lg'}}>
-                  Kesimpulan
+                  Kesimpulan & Temuan Utama
+               </Text>
+               <Text css={{color: '$accents7', fontSize: '$sm', lineHeight: 1.8, mb: '$4'}}>
+                  <strong>1. Pencegahan Data Leakage:</strong> Penerapan pemisahan train-test split sebelum proses augmentasi sangat penting. Eksperimen Skenario S2 (di mana model dilatih dengan data augmentasi) menunjukkan penurunan akurasi pada beberapa model dibandingkan Skenario S1 (data asli). Hal ini mengindikasikan bahwa augmentasi back-translation mungkin memasukkan noise pada dataset kecil ini.
+               </Text>
+               <Text css={{color: '$accents7', fontSize: '$sm', lineHeight: 1.8, mb: '$4'}}>
+                  <strong>2. Performa Model:</strong> Kombinasi klasikal <strong>TF-IDF + SVM</strong> terbukti menjadi yang terbaik dengan akurasi <strong>87.50%</strong>. Hal ini sejalan dengan sifat dataset dokumen pertanian yang memiliki keyword spesifik berulang, di mana TF-IDF sangat efektif dalam menyorot term-term krusial tersebut.
                </Text>
                <Text css={{color: '$accents7', fontSize: '$sm', lineHeight: 1.8}}>
-                  Pipeline NLP yang diimplementasikan berhasil mengklasifikasikan dokumen pertanian ICAR ke dalam 
-                  6 kategori dengan akurasi <strong>78.5%</strong> menggunakan BoW + Naive Bayes. Augmentasi data 
-                  back-translation berhasil menyeimbangkan distribusi kelas dari kondisi imbalanced (7–54 dokumen) 
-                  menjadi balanced (54 dokumen per kelas). Keempat model word embedding (W2Vec CBOW, W2Vec Skip-gram, 
-                  GloVe, FastText) berhasil diimplementasikan dengan dimensi 100D dan menghasilkan representasi 
-                  vektor yang dapat divisualisasikan melalui PCA.
+                  <strong>3. Embedding vs Classical:</strong> Contextual embedding <strong>BERT (mBERT) + SVM</strong> memberikan hasil yang sangat kompetitif di angka <strong>84.38%</strong> bahkan secara zero-shot (tanpa fine-tuning). Menariknya, BERT lebih cocok dipasangkan dengan SVM atau GaussianNB (81.25%) dibandingkan Decision Tree (71.88%) karena sifat embedding-nya yang dens dan bisa bernilai negatif.
                </Text>
             </Card.Body>
          </Card>

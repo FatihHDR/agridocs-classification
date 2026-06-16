@@ -3,9 +3,12 @@
 export const datasetInfo = {
   name: 'ICAR Agriculture Dataset',
   totalDocs: 159,
-  totalDocsAugmented: 324,
+  totalDocsAugmented: 258,  // train_aug (258) + test (32) = 290 total, 258 training
   categories: 6,
-  augmentationMethod: 'Back Translation (ID→EN→ID)',
+  augmentationMethod: 'Back Translation 4 Rute (ID↔EN, ID↔JP, ID↔CN, ID↔RU)',
+  trainSize: 127,
+  testSize: 32,
+  trainAugSize: 258,
 };
 
 export const categoryDistribution = [
@@ -97,29 +100,137 @@ export const augmentationImpact = [
   { feature: 'singh', ngramSize: 1, before: 4023, after: 4076, change: 1.3 },
 ];
 
-// Simulated classification results based on typical NLP pipeline results 
-// (akan diupdate ketika ada hasil aktual dari notebook)
+// ── Perbandingan Skenario S1 vs S2 ─────────────────────────────────────────
+// S1 = Dilatih data asli → Diuji data asli
+// S2 = Dilatih data+augmentasi → Diuji data asli
+export const scenarioComparison = [
+  // Classical ML
+  { family: 'Classical ML', representation: 'TF-IDF (1-2)', classifier: 'SVM',           s1: 87.50, s2: 84.38, gain: -3.12 },
+  { family: 'Classical ML', representation: 'TF-IDF (1-2)', classifier: 'Decision Tree', s1: 81.25, s2: 78.12, gain: -3.12 },
+  { family: 'Classical ML', representation: 'TF-IDF (1-2)', classifier: 'Naive Bayes',   s1: 50.00, s2: 56.25, gain: +6.25 },
+  { family: 'Classical ML', representation: 'BoW (Unigram)', classifier: 'SVM',          s1: 68.75, s2: 75.00, gain: +6.25 },
+  { family: 'Classical ML', representation: 'BoW (Unigram)', classifier: 'Decision Tree', s1: 65.62, s2: 71.88, gain: +6.25 },
+  { family: 'Classical ML', representation: 'BoW (Unigram)', classifier: 'Naive Bayes',  s1: 68.75, s2: 68.75, gain:  0.00 },
+  { family: 'Classical ML', representation: 'N-Gram (1-2)', classifier: 'SVM',           s1: 68.75, s2: 65.62, gain: -3.12 },
+  { family: 'Classical ML', representation: 'N-Gram (1-2)', classifier: 'Decision Tree', s1: 84.38, s2: 81.25, gain: -3.12 },  // sebelumnya 84.38 → setelah BOM fix 81.25
+  { family: 'Classical ML', representation: 'N-Gram (1-2)', classifier: 'Naive Bayes',   s1: 71.88, s2: 71.88, gain:  0.00 },
+  // Non-Contextual WE
+  { family: 'Non-Contextual WE', representation: 'Word2Vec SG',  classifier: 'SVM', s1: 65.62, s2: 68.75, gain: +3.12 },
+  { family: 'Non-Contextual WE', representation: 'Word2Vec CBOW', classifier: 'SVM', s1: 75.00, s2: 68.75, gain: -6.25 },
+  { family: 'Non-Contextual WE', representation: 'FastText',      classifier: 'SVM', s1: 71.88, s2: 65.62, gain: -6.25 },
+  // Contextual WE (BERT)
+  { family: 'Contextual WE',    representation: 'BERT (mBERT)', classifier: 'SVM',           s1: 84.38, s2: 81.25, gain: -3.12 },
+  { family: 'Contextual WE',    representation: 'BERT (mBERT)', classifier: 'Decision Tree',  s1: 71.88, s2: null,  gain: null  },
+  { family: 'Contextual WE',    representation: 'BERT (mBERT)', classifier: 'Naive Bayes',    s1: 81.25, s2: null,  gain: null  },
+];
+
+// ── Classification Report per kelas (S1 only) ──────────────────────────────
+export interface ClassReport {
+  label: string;
+  precision: number;
+  recall: number;
+  f1: number;
+  support: number;
+}
+
+export const classificationReports: Record<string, { accuracy: number; perClass: ClassReport[] }> = {
+  'TF-IDF + SVM': {
+    accuracy: 87.50,
+    perClass: [
+      { label: 'Annual Reports',                       precision: 1.00, recall: 1.00, f1: 1.00, support: 2  },
+      { label: 'Books',                                precision: 0.89, recall: 0.73, f1: 0.80, support: 11 },
+      { label: 'Indian Farming',                       precision: 1.00, recall: 0.80, f1: 0.89, support: 5  },
+      { label: 'Indian Horticulture',                  precision: 1.00, recall: 1.00, f1: 1.00, support: 4  },
+      { label: 'Reports',                              precision: 0.75, recall: 1.00, f1: 0.86, support: 9  },
+      { label: 'Traditional Knowledge in Agriculture', precision: 1.00, recall: 1.00, f1: 1.00, support: 1  },
+    ],
+  },
+  'TF-IDF + Decision Tree': {
+    accuracy: 81.25,
+    perClass: [
+      { label: 'Annual Reports',                       precision: 0.50, recall: 0.50, f1: 0.50, support: 2  },
+      { label: 'Books',                                precision: 0.77, recall: 0.91, f1: 0.83, support: 11 },
+      { label: 'Indian Farming',                       precision: 1.00, recall: 0.60, f1: 0.75, support: 5  },
+      { label: 'Indian Horticulture',                  precision: 1.00, recall: 1.00, f1: 1.00, support: 4  },
+      { label: 'Reports',                              precision: 0.88, recall: 0.78, f1: 0.82, support: 9  },
+      { label: 'Traditional Knowledge in Agriculture', precision: 0.50, recall: 1.00, f1: 0.67, support: 1  },
+    ],
+  },
+  'TF-IDF + Naive Bayes': {
+    accuracy: 50.00,
+    perClass: [
+      { label: 'Annual Reports',                       precision: 0.00, recall: 0.00, f1: 0.00, support: 2  },
+      { label: 'Books',                                precision: 0.35, recall: 0.55, f1: 0.43, support: 11 },
+      { label: 'Indian Farming',                       precision: 0.00, recall: 0.00, f1: 0.00, support: 5  },
+      { label: 'Indian Horticulture',                  precision: 1.00, recall: 0.50, f1: 0.67, support: 4  },
+      { label: 'Reports',                              precision: 0.62, recall: 0.89, f1: 0.73, support: 9  },
+      { label: 'Traditional Knowledge in Agriculture', precision: 0.00, recall: 0.00, f1: 0.00, support: 1  },
+    ],
+  },
+  'N-Gram + Decision Tree': {
+    accuracy: 81.25,
+    perClass: [
+      { label: 'Annual Reports',                       precision: 1.00, recall: 1.00, f1: 1.00, support: 2  },
+      { label: 'Books',                                precision: 0.71, recall: 0.91, f1: 0.80, support: 11 },
+      { label: 'Indian Farming',                       precision: 0.75, recall: 0.60, f1: 0.67, support: 5  },
+      { label: 'Indian Horticulture',                  precision: 1.00, recall: 1.00, f1: 1.00, support: 4  },
+      { label: 'Reports',                              precision: 0.88, recall: 0.78, f1: 0.82, support: 9  },
+      { label: 'Traditional Knowledge in Agriculture', precision: 0.00, recall: 0.00, f1: 0.00, support: 1  },
+    ],
+  },
+  'BERT + SVM': {
+    accuracy: 84.38,
+    perClass: [
+      { label: 'Annual Reports',                       precision: 1.00, recall: 0.50, f1: 0.67, support: 2  },
+      { label: 'Books',                                precision: 0.82, recall: 0.82, f1: 0.82, support: 11 },
+      { label: 'Indian Farming',                       precision: 1.00, recall: 1.00, f1: 1.00, support: 5  },
+      { label: 'Indian Horticulture',                  precision: 1.00, recall: 1.00, f1: 1.00, support: 4  },
+      { label: 'Reports',                              precision: 0.70, recall: 0.78, f1: 0.74, support: 9  },
+      { label: 'Traditional Knowledge in Agriculture', precision: 1.00, recall: 1.00, f1: 1.00, support: 1  },
+    ],
+  },
+  'BERT + Decision Tree': {
+    accuracy: 71.88,
+    perClass: [
+      { label: 'Annual Reports',                       precision: 0.33, recall: 0.50, f1: 0.40, support: 2  },
+      { label: 'Books',                                precision: 0.67, recall: 0.73, f1: 0.70, support: 11 },
+      { label: 'Indian Farming',                       precision: 0.83, recall: 1.00, f1: 0.91, support: 5  },
+      { label: 'Indian Horticulture',                  precision: 0.80, recall: 1.00, f1: 0.89, support: 4  },
+      { label: 'Reports',                              precision: 0.83, recall: 0.56, f1: 0.67, support: 9  },
+      { label: 'Traditional Knowledge in Agriculture', precision: 0.00, recall: 0.00, f1: 0.00, support: 1  },
+    ],
+  },
+  'BERT + Naive Bayes': {
+    accuracy: 81.25,
+    perClass: [
+      { label: 'Annual Reports',                       precision: 1.00, recall: 0.50, f1: 0.67, support: 2  },
+      { label: 'Books',                                precision: 0.75, recall: 0.82, f1: 0.78, support: 11 },
+      { label: 'Indian Farming',                       precision: 1.00, recall: 0.80, f1: 0.89, support: 5  },
+      { label: 'Indian Horticulture',                  precision: 1.00, recall: 1.00, f1: 1.00, support: 4  },
+      { label: 'Reports',                              precision: 0.70, recall: 0.78, f1: 0.74, support: 9  },
+      { label: 'Traditional Knowledge in Agriculture', precision: 1.00, recall: 1.00, f1: 1.00, support: 1  },
+    ],
+  },
+};
+
+// For backward compatibility
 export const classificationResults = {
   tfidf: {
-    method: 'SVM + TF-IDF (Mitigated)',
-    accuracy: 0.969,
-    precision: 0.960,
-    recall: 0.980,
-    f1Score: 0.970,
-    perClass: [
-      { label: 'Publications', precision: 1.00, recall: 0.94, f1: 0.97, support: 32 },
-      { label: 'Indian Farming', precision: 0.85, recall: 1.00, f1: 0.92, support: 11 },
-      { label: 'Indian Horticulture', precision: 1.00, recall: 1.00, f1: 1.00, support: 11 },
-      { label: 'Traditional Knowledge', precision: 1.00, recall: 1.00, f1: 1.00, support: 11 },
-    ],
+    method: 'TF-IDF + SVM (S1)',
+    accuracy: 0.875,
+    precision: 0.94,
+    recall: 0.92,
+    f1Score: 0.92,
+    perClass: classificationReports['TF-IDF + SVM'].perClass,
   },
 };
 
 export const pipelineSteps = [
   { step: 1, name: 'Data Collection', status: 'done', description: '159 dokumen ICAR' },
   { step: 2, name: 'Preprocessing', status: 'done', description: 'Tokenisasi, stopword removal, stemming' },
-  { step: 3, name: 'Augmentation', status: 'done', description: 'Back translation → 324 dokumen' },
-  { step: 4, name: 'Feature Extraction', status: 'done', description: 'TF-IDF, BoW, n-gram' },
-  { step: 5, name: 'Word Embedding', status: 'done', description: 'W2V, GloVe, FastText' },
-  { step: 6, name: 'Classification', status: 'done', description: 'SVM, Decision Tree, Naive Bayes' },
+  { step: 3, name: 'Train-Test Split', status: 'done', description: '80:20 stratified sebelum augmentasi' },
+  { step: 4, name: 'Augmentasi', status: 'done', description: 'Back-translation 4 rute (EN/JP/CN/RU) → 258 training docs' },
+  { step: 5, name: 'Feature Extraction', status: 'done', description: 'TF-IDF, BoW, n-gram' },
+  { step: 6, name: 'Word Embedding', status: 'done', description: 'W2V, GloVe, FastText, BERT (mBERT)' },
+  { step: 7, name: 'Classification', status: 'done', description: 'SVM, Decision Tree, Naive Bayes' },
 ];
