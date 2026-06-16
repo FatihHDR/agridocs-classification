@@ -32,7 +32,11 @@ const EXAMPLES: { label: string; text: string }[] = [
    },
    {
       label: "Annual Reports",
-      text: "new wheat variety developed high yield resistant disease maturity days suitable madhya pradesh farmers production",
+      text: "ICAR Annual Report research highlights achievements year institute technology transfer kisan mela variety release patent publication director general governing body budget expenditure.",
+   },
+   {
+      label: "Reports",
+      text: "Government of India Ministry Agriculture report survey statistics area production productivity district state year evaluation scheme programme implementation recommendation policy committee working group.",
    },
 ];
 

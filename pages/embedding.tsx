@@ -246,6 +246,66 @@ const EmbeddingPage: NextPage = () => {
             ))}
          </Grid.Container>
 
+         {/* ── BERT Confusion Matrices ──────────────────────────── */}
+         <Box css={{mt: '$14', mb: '$6'}}>
+            <Text h3 css={{mb: '$2'}}>Contextual Embedding — BERT (mBERT) Confusion Matrix</Text>
+            <Text css={{color: '$accents7', mb: '$8', fontSize: '$sm'}}>
+               Model <strong>distilbert-base-multilingual-cased</strong> digunakan sebagai feature extractor (768D, zero-shot, mean-pooling)
+               dan dievaluasi dengan tiga classifier berbeda.
+            </Text>
+         </Box>
+
+         {/* Summary accuracy badges */}
+         <Flex css={{gap: '$4', mb: '$8', flexWrap: 'wrap'}}>
+            {[
+               {clf: 'SVM',           acc: '84.38%', color: '#6366f1'},
+               {clf: 'Naive Bayes',   acc: '81.25%', color: '#f59e0b'},
+               {clf: 'Decision Tree', acc: '71.88%', color: '#10b981'},
+            ].map((r) => (
+               <Card key={r.clf} css={{
+                  flex: '1', minWidth: '200px', borderRadius: '$xl',
+                  borderTop: `3px solid ${r.color}`, bg: '$accents0',
+               }}>
+                  <Card.Body css={{py: '$6', px: '$8'}}>
+                     <Text css={{color: '$accents6', fontSize: '$xs', mb: '$1'}}>BERT + {r.clf}</Text>
+                     <Text b css={{fontSize: '2rem', color: r.color, lineHeight: 1}}>{r.acc}</Text>
+                     <Text css={{color: '$accents6', fontSize: '$xs', mt: '$1'}}>Accuracy (S1 — Data Asli)</Text>
+                  </Card.Body>
+               </Card>
+            ))}
+         </Flex>
+
+         <Grid.Container gap={2} justify="center" css={{mb: '$12'}}>
+            {[
+               {title: 'BERT + SVM',           img: '/cm_bert_svm.png',           color: '#6366f1', acc: '84.38%'},
+               {title: 'BERT + Naive Bayes',   img: '/cm_bert_naive_bayes.png',   color: '#f59e0b', acc: '81.25%'},
+               {title: 'BERT + Decision Tree', img: '/cm_bert_decision_tree.png', color: '#10b981', acc: '71.88%'},
+            ].map((item, idx) => (
+               <Grid xs={12} sm={6} md={4} key={idx}>
+                  <Card
+                     isHoverable
+                     isPressable
+                     css={{w: '100%', bg: '$accents0', border: '1px solid $accents2'}}
+                     onClick={() => setPreviewImage(item.img)}
+                  >
+                     <Card.Header css={{p: '$4', zIndex: 1}}>
+                        <Text h5 css={{m: 0, textAlign: 'center', width: '100%'}}>{item.title}</Text>
+                     </Card.Header>
+                     <Card.Body css={{p: 0}}>
+                        <Card.Image
+                           src={item.img}
+                           objectFit="cover"
+                           width="100%"
+                           height={200}
+                           alt={item.title}
+                           css={{bg: 'white', borderBottomLeftRadius: '$xl', borderBottomRightRadius: '$xl'}}
+                        />
+                     </Card.Body>
+                  </Card>
+               </Grid>
+            ))}
+         </Grid.Container>
+
          <Modal
             closeButton
             blur
