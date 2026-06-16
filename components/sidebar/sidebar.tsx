@@ -84,6 +84,12 @@ export const SidebarWrapper = () => {
                         href="/dataset"
                      />
                      <SidebarItem
+                        isActive={router.pathname === '/mitigation'}
+                        title="Mitigasi (Leakage & Noise)"
+                        icon={<FilterIcon />}
+                        href="/mitigation"
+                     />
+                     <SidebarItem
                         isActive={router.pathname === '/features'}
                         title="Ekstraksi Fitur"
                         icon={<FeaturesIcon />}

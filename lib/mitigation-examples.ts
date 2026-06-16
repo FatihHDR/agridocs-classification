@@ -1,0 +1,18 @@
+// Auto-generated examples from real dataset
+export const mitigationExamples = [
+  {
+    "category": "Indian Horticulture",
+    "raw": "\n--- Page 1 ---\nPrice 2 30 aa _ www.icar.org.in ISO 9001.2015 Organization 4 INDIAN ICAR Horticulture March-April 2024 Sadabahar 4malt 'qet3nt\n\n--- Page 2 ---\nP L Saroj1*, M K Jatav2 and\nProspects\nS K Chakrabarti3\nPotato Cultivation in Non-traditional\nAreas of Rajasthan\nWith the ever-increasing population pressure and the need to ensure food security,\nit is imperative to find suitable alternative ...",
+    "mitigated": "\n    page      \nprice      aa     iso           organization   indian icar horticulture march april      sadabahar  malt  qet nt\n\n    page      \np l saroj    m k jatav  and\nprospects\ns k chakrabarti \npotato cultivation in non traditional\nareas of rajasthan\nwith the ever increasing population pressure and the need to ensure food security \nit is imperative to find suitable alternative crops for augmenting farm productivity\nin non traditional areas of thar desert of rajasthan  for the first time  potato\ncultivars like kufri chipsona   and kufri frysona  for processing  and kufri jyoti \nkufri gari..."
+  },
+  {
+    "category": "\u00d4\u00fc\u00e1Books",
+    "raw": "\n--- Page 1 ---\nICAR TECHNOLOGIES VACCINES FOR LIVESTOCK AND POULTRY ut Fcuer Cal \u20ac AHeni Elmil MrLCSF HMFI ICAK Indian Council of Agricultural Research New Delhi Eliesiehl Ueee\n\n--- Page 2 ---\nINDIAN COUNCIL OF AGRICULTURAL RESEARCH Institutes, Bureaux, National Research Centres ICLE and Directorates Larakh Jumimj & Katnmr HP Ubrbhand Purjab Tyura AAnumachal Fradaah Rejasthen Sukim Asumn Kajand U...",
+    "mitigated": "\n    page      \nicar technologies vaccines for livestock and poultry ut fcuer cal   aheni elmil mrlcsf hmfi icak indian council of agricultural research new delhi eliesiehl ueee\n\n    page      \nindian council of agricultural research institutes  bureaux  national research centres icle and directorates larakh jumimj   katnmr hp ubrbhand purjab tyura aanumachal fradaah rejasthen sukim asumn kajand ubar prades dikar magha aja jhantnand iuarziae qujarat ykes denpal marhya piadesh  chlallisyah ojbha ruru wahanashkra tek ean  attra   ces  karralaki dlnds mr tamil nadu icar hqra inawutm elml dlr  cta..."
+  },
+  {
+    "category": "\u00d4\u00fc\u00e1Reports",
+    "raw": "\n--- Page 1 ---\nFOR OFFICIAL USE ONLY\n\u092d\u093e\u0930\u0924 \u0938\u0930\u0915\u093e\u0930\nGOVERNMENT OF INDIA\n\u0915\u0943 \u093f\u0937 \u090f\u0935\u0902 \u093f\u0915\u0938\u093e\u0928 \u0915(cid:670)\u093e\u0923 \u092e(cid:568)\u093e\u0932\u092f\nMINISTRY OF AGRICULTURE & FARMERS WELFARE\n\u092e\u0941(cid:421) \u0932\u0947\u0916\u093e \u093f\u0928\u092f\u0902(cid:361)\u0915 \u0915\u093e\u092f\u093e(cid:330)\u0932\u092f\nO/o CHIEF CONTROLLER OF ACCOUNTS\n\u0932\u0947\u0916\u093e \u090f\u0915 \u091d\u0932\u0915\nACCOUNTS AT A GLANCE\n2020-21\n\n--- Page 2 ---\n\n--- Page 3 ---\nACCOUNTS AT A GLANCE\nFOR THE YEAR\n2020-2021\nGOVERNMENT OF INDIA\nMINISTRY OF AGRICULUTURE & F...",
+    "mitigated": "\n    page      \nfor official use only\n          \ngovernment of india\n                  cid          cid        \nministry of agriculture   farmers welfare\n   cid                cid            cid       \no o chief controller of accounts\n           \naccounts at a glance\n       \n\n    page      \n\n    page      \naccounts at a glance\nfor the year\n         \ngovernment of india\nministry of agriculuture   farmers welfare\nchief controller of accounts\n\n    page      \n\n    page      \ni have great pleasure in bringing out the  accounts at a glance  of the ministry\nof agriculture and farmers welfare for the ..."
+  }
+];
