@@ -4,7 +4,7 @@ import React from 'react';
 import {Text, Card} from '@nextui-org/react';
 import {Box} from '../components/styles/box';
 import {Flex} from '../components/styles/flex';
-import {categoryDistribution, datasetInfo, pipelineSteps} from '../lib/nlp-data';
+import {categoryDistribution, datasetInfo, backTranslationExamples} from '../lib/nlp-data';
 import dynamic from 'next/dynamic';
 
 const CategoryDistributionChart = dynamic(
@@ -28,7 +28,7 @@ const DatasetPage: NextPage = () => {
                {label: 'Total Dokumen Asli', value: datasetInfo.totalDocs, color: '#6366f1', icon: 'DOC'},
                {label: 'Setelah Augmentasi', value: datasetInfo.totalDocsAugmented, color: '#10b981', icon: 'AUG'},
                {label: 'Jumlah Kategori', value: datasetInfo.categories, color: '#f59e0b', icon: 'CAT'},
-               {label: 'Docs per Kelas (setelah aug)', value: 54, color: '#8b5cf6', icon: 'BAL'},
+               {label: 'Metode Augmentasi', value: '4 Rute Terjemahan', color: '#8b5cf6', icon: 'NLP'},
             ].map((stat) => (
                <Card
                   key={stat.label}
@@ -106,16 +106,16 @@ const DatasetPage: NextPage = () => {
                            <Text css={{color: '$accents6', fontSize: '$xs'}}>Augmented</Text>
                         </Flex>
                      </Flex>
-                     <Box css={{mt: '$4', bg: '$accents2', borderRadius: '$full', height: '4px', overflow: 'hidden'}}>
+                     <Box css={{mt: '$4', bg: '$accents2', borderRadius: '$full', height: '6px', overflow: 'hidden'}}>
                         <Box css={{
-                           width: `${(cat.original / 54) * 100}%`,
+                           width: `${Math.min(100, (cat.augmented / 86) * 100)}%`,
                            height: '100%',
                            background: cat.color,
                            borderRadius: '$full',
                         }} />
                      </Box>
                      <Text css={{color: '$accents6', fontSize: '$xs', mt: '$2', textAlign: 'right'}}>
-                        {cat.original} dari 54 dokumen target
+                        Peningkatan {(cat.augmented - cat.original)} dokumen
                      </Text>
                   </Card.Body>
                </Card>
@@ -132,7 +132,7 @@ const DatasetPage: NextPage = () => {
                      {step: '2', name: 'Tokenisasi', desc: 'Memisahkan teks menjadi token kata'},
                      {step: '3', name: 'Stopword Removal', desc: 'Menghapus kata-kata tidak bermakna'},
                      {step: '4', name: 'Stemming/Lemmatization', desc: 'Normalisasi bentuk kata dasar'},
-                     {step: '5', name: 'Augmentation', desc: 'Back-translation ID→EN→ID'},
+                     {step: '5', name: 'Augmentation', desc: 'Back-translation (EN→FR/DE/RU/ES→EN)'},
                      {step: '6', name: 'Vectorization', desc: 'TF-IDF & BoW representation'},
                   ].map((s) => (
                      <Flex key={s.step} css={{flex: 1, minWidth: '250px', gap: '$4'}} align={'start'}>
@@ -155,18 +155,43 @@ const DatasetPage: NextPage = () => {
             </Card.Body>
          </Card>
 
-         {/* Augmentation image */}
-         <Text h3 css={{mb: '$6'}}>Visualisasi Augmentasi</Text>
-         <Card css={{borderRadius: '$xl', bg: '$accents0', overflow: 'hidden'}}>
-            <Card.Header css={{py: '$4', px: '$6'}}>
-               <Text b size={'$sm'}>Back Translation Augmentation Result</Text>
-            </Card.Header>
+         {/* Augmentation Table */}
+         <Text h3 css={{mb: '$6'}}>Contoh Hasil Augmentasi (Back Translation)</Text>
+         <Card css={{borderRadius: '$xl', bg: '$accents0', overflow: 'hidden', mb: '$12'}}>
             <Card.Body css={{p: 0}}>
-               <img
-                  src="/output/back_translation_augmentation.png"
-                  alt="Back Translation Augmentation"
-                  style={{width: '100%', maxHeight: '400px', objectFit: 'contain', padding: '20px'}}
-               />
+               <div style={{ overflowX: 'auto' }}>
+                  <table style={{width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontFamily: 'Montserrat, sans-serif'}}>
+                     <thead>
+                        <tr style={{background: 'var(--nextui-colors-accents1)', borderBottom: '1px solid var(--nextui-colors-border)'}}>
+                           <th style={{padding: '16px 20px', width: '40%', color: 'var(--nextui-colors-accents8)', fontSize: '13px'}}>Teks Asli (ICAR Dataset)</th>
+                           <th style={{padding: '16px 20px', width: '15%', color: 'var(--nextui-colors-accents8)', fontSize: '13px'}}>Metode</th>
+                           <th style={{padding: '16px 20px', width: '45%', color: 'var(--nextui-colors-accents8)', fontSize: '13px'}}>Hasil Augmentasi</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        {backTranslationExamples.map((ex, idx) => (
+                           <tr key={idx} style={{borderBottom: '1px solid var(--nextui-colors-border)'}}>
+                              <td style={{padding: '16px 20px', fontSize: '13px', color: 'var(--nextui-colors-accents7)', lineHeight: 1.6}}>
+                                 {ex.original}
+                              </td>
+                              <td style={{padding: '16px 20px'}}>
+                                 <Box css={{
+                                    bg: 'var(--nextui-colors-primaryLight)', 
+                                    color: 'var(--nextui-colors-primary)',
+                                    px: '$4', py: '$2', borderRadius: '$md', display: 'inline-block',
+                                    fontSize: '12px', fontWeight: 600
+                                 }}>
+                                    {ex.method}
+                                 </Box>
+                              </td>
+                              <td style={{padding: '16px 20px', fontSize: '13px', color: 'var(--nextui-colors-accents9)', lineHeight: 1.6, fontWeight: 500}}>
+                                 {ex.augmented}
+                              </td>
+                           </tr>
+                        ))}
+                     </tbody>
+                  </table>
+               </div>
             </Card.Body>
          </Card>
       </Box>

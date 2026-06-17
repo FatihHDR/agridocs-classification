@@ -34,12 +34,12 @@ export const StyledBadge = styled('span', {
    variants: {
       type: {
          active: {
-            bg: '$successLight',
-            color: '$successLightContrast',
+            bg: '$primaryLight',
+            color: '$primaryLightContrast',
          },
          paused: {
-            bg: '$errorLight',
-            color: '$errorLightContrast',
+            bg: '$accents2',
+            color: '$accents8',
          },
          vacation: {
             bg: '$warningLight',

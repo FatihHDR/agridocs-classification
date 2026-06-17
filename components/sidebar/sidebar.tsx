@@ -125,13 +125,6 @@ export const SidebarWrapper = () => {
                   <Tooltip content={'Filter'} rounded color="primary">
                      <FilterIcon />
                   </Tooltip>
-                  <Tooltip content={'Profile'} rounded color="primary">
-                     <Avatar
-                        text="NLP"
-                        size={'sm'}
-                        color="gradient"
-                     />
-                  </Tooltip>
                </Sidebar.Footer>
             </Flex>
          </Sidebar>

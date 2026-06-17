@@ -3,7 +3,7 @@ import React from 'react';
 import {Text, Card} from '@nextui-org/react';
 import {Box} from '../components/styles/box';
 import {Flex} from '../components/styles/flex';
-import {datasetInfo, embeddingModels} from '../lib/nlp-data';
+import {datasetInfo, embeddingModels, fullModelComparison} from '../lib/nlp-data';
 
 const ReportsPage: NextPage = () => {
    return (
@@ -203,6 +203,88 @@ const ReportsPage: NextPage = () => {
                      ))}
                   </tbody>
                </table>
+            </Card.Body>
+         </Card>
+
+         {/* Full Model Comparison Table */}
+         <Card css={{
+            borderRadius: '$xl',
+            mb: '$10',
+            bg: '$accents0',
+            border: '1px solid $accents2',
+            overflow: 'hidden',
+         }}>
+            <Card.Body css={{p: 0}}>
+               <Box css={{p: '$8', borderBottom: '1px solid $accents2'}}>
+                  <Text b css={{color: '$accents9', fontSize: '$lg'}}>
+                     Tabel Perbandingan Seluruh Model
+                  </Text>
+                  <Text css={{color: '$accents7', fontSize: '$sm', mt: '$1'}}>
+                     Metrik evaluasi lengkap untuk setiap kombinasi representasi teks dan pengklasifikasi.
+                  </Text>
+               </Box>
+               
+               <div style={{ overflowX: 'auto' }}>
+                  <table style={{width: '100%', borderCollapse: 'collapse', textAlign: 'left'}}>
+                     <thead>
+                        <tr style={{background: 'var(--nextui-colors-accents1)', borderBottom: '1px solid var(--nextui-colors-accents2)'}}>
+                           <th style={{padding: '16px 24px', color: 'var(--nextui-colors-accents8)', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Model</th>
+                           <th style={{padding: '16px 24px', color: 'var(--nextui-colors-accents8)', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Precision</th>
+                           <th style={{padding: '16px 24px', color: 'var(--nextui-colors-accents8)', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Recall</th>
+                           <th style={{padding: '16px 24px', color: 'var(--nextui-colors-accents8)', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.5px'}}>F1-Score</th>
+                           <th style={{padding: '16px 24px', color: 'var(--nextui-colors-accents8)', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Accuracy</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        {fullModelComparison
+                           .sort((a, b) => b.f1 - a.f1) // Sort by F1 desc
+                           .map((item, i) => {
+                              const isTop = i < 3;
+                              const isBert = item.representation === 'BERT';
+                              const modelName = `${item.classifier} + ${item.representation}`;
+                              
+                              return (
+                                 <tr
+                                    key={modelName}
+                                    style={{
+                                       borderBottom: '1px solid var(--nextui-colors-border)',
+                                       background: isTop ? 'var(--nextui-colors-successLight)' : 'transparent',
+                                    }}
+                                 >
+                                    <td style={{padding: '14px 24px'}}>
+                                       <Flex align="center" css={{gap: '$3'}}>
+                                          {isTop && (
+                                             <span style={{ fontSize: '16px' }}>🏆</span>
+                                          )}
+                                          {!isTop && isBert && (
+                                             <span style={{ fontSize: '16px' }}>🤖</span>
+                                          )}
+                                          <span style={{
+                                             fontWeight: isTop || isBert ? 700 : 500, 
+                                             color: isTop ? 'var(--nextui-colors-success)' : isBert ? 'var(--nextui-colors-primary)' : 'var(--nextui-colors-accents9)'
+                                          }}>
+                                             {modelName}
+                                          </span>
+                                       </Flex>
+                                    </td>
+                                    <td style={{padding: '14px 24px', fontWeight: 600, color: 'var(--nextui-colors-accents8)'}}>
+                                       {item.precision.toFixed(4)}
+                                    </td>
+                                    <td style={{padding: '14px 24px', fontWeight: 600, color: 'var(--nextui-colors-accents8)'}}>
+                                       {item.recall.toFixed(4)}
+                                    </td>
+                                    <td style={{padding: '14px 24px', fontWeight: 700, color: isTop ? 'var(--nextui-colors-success)' : 'var(--nextui-colors-accents9)'}}>
+                                       {item.f1.toFixed(4)}
+                                    </td>
+                                    <td style={{padding: '14px 24px', fontWeight: 600, color: 'var(--nextui-colors-accents8)'}}>
+                                       {item.accuracy.toFixed(4)}
+                                    </td>
+                                 </tr>
+                              );
+                           })}
+                     </tbody>
+                  </table>
+               </div>
             </Card.Body>
          </Card>
 

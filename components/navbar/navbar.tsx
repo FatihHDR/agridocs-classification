@@ -82,7 +82,9 @@ export const NavbarWrapper = ({children}: Props) => {
                      'transition': 'all 0.2s ease',
                      '@xsMax': {
                         w: '100%',
-                        // mw: '300px',
+                     },
+                     '@mdMin': {
+                        mw: '400px',
                      },
                      '& .nextui-input-content--left': {
                         h: '100%',
@@ -94,27 +96,8 @@ export const NavbarWrapper = ({children}: Props) => {
                />
             </Navbar.Content>
             <Navbar.Content>
-               <Navbar.Content hideIn={'md'}>
-                  <Flex align={'center'} css={{gap: '$4'}}>
-                     <FeedbackIcon />
-                     <Text span>Feedback?</Text>
-                  </Flex>
-               </Navbar.Content>
-
                <Navbar.Content>
                   <NotificationsDropdown />
-               </Navbar.Content>
-
-               <Navbar.Content hideIn={'md'}>
-                  <SupportIcon />
-               </Navbar.Content>
-               <Navbar.Content>
-                  <Link
-                     href="https://github.com/"
-                     target={'_blank'}
-                  >
-                     <GithubIcon />
-                  </Link>
                </Navbar.Content>
                <Navbar.Content>
                   <UserDropdown />

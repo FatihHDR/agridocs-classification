@@ -12,12 +12,35 @@ export const datasetInfo = {
 };
 
 export const categoryDistribution = [
-  { name: 'Books', original: 54, augmented: 54, color: '#6366f1' },
-  { name: 'Reports', original: 47, augmented: 54, color: '#8b5cf6' },
-  { name: 'Indian Farming', original: 23, augmented: 54, color: '#06b6d4' },
-  { name: 'Indian Horticulture', original: 18, augmented: 54, color: '#10b981' },
-  { name: 'Annual Reports', original: 10, augmented: 54, color: '#f59e0b' },
-  { name: 'Traditional Knowledge', original: 7, augmented: 54, color: '#ec4899' },
+  { name: 'Books', original: 43, augmented: 86, color: '#6366f1' },
+  { name: 'Reports', original: 38, augmented: 81, color: '#8b5cf6' },
+  { name: 'Indian Farming', original: 18, augmented: 61, color: '#06b6d4' },
+  { name: 'Indian Horticulture', original: 14, augmented: 57, color: '#10b981' },
+  { name: 'Annual Reports', original: 8, augmented: 51, color: '#f59e0b' },
+  { name: 'Traditional Knowledge', original: 6, augmented: 49, color: '#ec4899' },
+];
+
+export const backTranslationExamples = [
+  {
+    original: "The Indian Council of Agricultural Research (ICAR) is an autonomous organisation under the Department of Agricultural Research.",
+    method: "EN-FR-EN",
+    augmented: "The Indian Council of Agricultural Research (ICAR) is an independent organization under the Department of Agricultural Research."
+  },
+  {
+    original: "Tomato is one of the most versatile and widely grown vegetable crops in India, requiring proper irrigation and pest management.",
+    method: "EN-DE-EN",
+    augmented: "The tomato is one of the most versatile and widely cultivated vegetable crops in India, requiring adequate irrigation and pest control."
+  },
+  {
+    original: "Frontline demonstrations are conducted to showcase the maximum yield potential of newly released crop varieties in farmers' fields.",
+    method: "EN-RU-EN",
+    augmented: "Frontline demonstrations are carried out to show the maximum yield potential of newly approved crop varieties in agricultural fields."
+  },
+  {
+    original: "Traditional agricultural knowledge includes indigenous farming practices passed down through generations by local tribal communities.",
+    method: "EN-ES-EN",
+    augmented: "Traditional agricultural knowledge consists of native farming techniques transmitted across generations by local tribal groups."
+  }
 ];
 
 export const embeddingModels = [
@@ -107,21 +130,33 @@ export const scenarioComparison = [
   // Classical ML
   { family: 'Classical ML', representation: 'TF-IDF (1-2)', classifier: 'SVM',           s1: 87.50, s2: 84.38, gain: -3.12 },
   { family: 'Classical ML', representation: 'TF-IDF (1-2)', classifier: 'Decision Tree', s1: 81.25, s2: 78.12, gain: -3.12 },
-  { family: 'Classical ML', representation: 'TF-IDF (1-2)', classifier: 'Naive Bayes',   s1: 50.00, s2: 56.25, gain: +6.25 },
-  { family: 'Classical ML', representation: 'BoW (Unigram)', classifier: 'SVM',          s1: 68.75, s2: 75.00, gain: +6.25 },
-  { family: 'Classical ML', representation: 'BoW (Unigram)', classifier: 'Decision Tree', s1: 65.62, s2: 71.88, gain: +6.25 },
-  { family: 'Classical ML', representation: 'BoW (Unigram)', classifier: 'Naive Bayes',  s1: 68.75, s2: 68.75, gain:  0.00 },
+  { family: 'Classical ML', representation: 'TF-IDF (1-2)', classifier: 'Naive Bayes',   s1: 50.00, s2: 56.25, gain: 6.25 },
+  { family: 'Classical ML', representation: 'BoW (Unigram)', classifier: 'SVM',          s1: 68.75, s2: 75.00, gain: 6.25 },
+  { family: 'Classical ML', representation: 'BoW (Unigram)', classifier: 'Decision Tree', s1: 65.62, s2: 71.88, gain: 6.25 },
+  { family: 'Classical ML', representation: 'BoW (Unigram)', classifier: 'Naive Bayes',  s1: 68.75, s2: 68.75, gain: 0.00 },
   { family: 'Classical ML', representation: 'N-Gram (1-2)', classifier: 'SVM',           s1: 68.75, s2: 65.62, gain: -3.12 },
-  { family: 'Classical ML', representation: 'N-Gram (1-2)', classifier: 'Decision Tree', s1: 84.38, s2: 81.25, gain: -3.12 },  // sebelumnya 84.38 → setelah BOM fix 81.25
-  { family: 'Classical ML', representation: 'N-Gram (1-2)', classifier: 'Naive Bayes',   s1: 71.88, s2: 71.88, gain:  0.00 },
+  { family: 'Classical ML', representation: 'N-Gram (1-2)', classifier: 'Decision Tree', s1: 84.38, s2: 81.25, gain: -3.12 },
+  { family: 'Classical ML', representation: 'N-Gram (1-2)', classifier: 'Naive Bayes',   s1: 71.88, s2: 71.88, gain: 0.00 },
+  
   // Non-Contextual WE
-  { family: 'Non-Contextual WE', representation: 'Word2Vec SG',  classifier: 'SVM', s1: 65.62, s2: 68.75, gain: +3.12 },
+  { family: 'Non-Contextual WE', representation: 'Word2Vec SG',   classifier: 'SVM', s1: 65.62, s2: 68.75, gain: 3.12 },
   { family: 'Non-Contextual WE', representation: 'Word2Vec CBOW', classifier: 'SVM', s1: 75.00, s2: 68.75, gain: -6.25 },
   { family: 'Non-Contextual WE', representation: 'FastText',      classifier: 'SVM', s1: 71.88, s2: 65.62, gain: -6.25 },
+  { family: 'Non-Contextual WE', representation: 'Glove',         classifier: 'SVM', s1: 68.75, s2: 68.75, gain: 0.00 },
+  
+  { family: 'Non-Contextual WE', representation: 'Word2Vec SG',   classifier: 'Decision Tree', s1: 65.62, s2: 68.75, gain: 3.12 },
+  { family: 'Non-Contextual WE', representation: 'Word2Vec CBOW', classifier: 'Decision Tree', s1: 71.88, s2: 71.88, gain: 0.00 },
+  { family: 'Non-Contextual WE', representation: 'FastText',      classifier: 'Decision Tree', s1: 65.62, s2: 71.88, gain: 6.25 },
+  { family: 'Non-Contextual WE', representation: 'Glove',         classifier: 'Decision Tree', s1: 68.75, s2: 68.75, gain: 0.00 },
+  
+  { family: 'Non-Contextual WE', representation: 'Word2Vec CBOW', classifier: 'Naive Bayes', s1: 65.62, s2: 68.75, gain: 3.12 },
+  { family: 'Non-Contextual WE', representation: 'FastText',      classifier: 'Naive Bayes', s1: 71.88, s2: 71.88, gain: 0.00 },
+  { family: 'Non-Contextual WE', representation: 'Glove',         classifier: 'Naive Bayes', s1: 68.75, s2: 68.75, gain: 0.00 },
+
   // Contextual WE (BERT)
-  { family: 'Contextual WE',    representation: 'BERT (mBERT)', classifier: 'SVM',           s1: 84.38, s2: 81.25, gain: -3.12 },
-  { family: 'Contextual WE',    representation: 'BERT (mBERT)', classifier: 'Decision Tree',  s1: 71.88, s2: null,  gain: null  },
-  { family: 'Contextual WE',    representation: 'BERT (mBERT)', classifier: 'Naive Bayes',    s1: 81.25, s2: null,  gain: null  },
+  { family: 'Contextual WE', representation: 'BERT (mBERT)', classifier: 'SVM',           s1: 84.38, s2: 81.25, gain: -3.12 },
+  { family: 'Contextual WE', representation: 'BERT (mBERT)', classifier: 'Decision Tree', s1: 71.88, s2: 70.43, gain: -1.45 },
+  { family: 'Contextual WE', representation: 'BERT (mBERT)', classifier: 'Naive Bayes',   s1: 81.25, s2: 72.54, gain: -8.71 },
 ];
 
 // ── Classification Report per kelas (S1 only) ──────────────────────────────
@@ -232,5 +267,38 @@ export const pipelineSteps = [
   { step: 4, name: 'Augmentasi', status: 'done', description: 'Back-translation 4 rute (EN/JP/CN/RU) → 258 training docs' },
   { step: 5, name: 'Feature Extraction', status: 'done', description: 'TF-IDF, BoW, n-gram' },
   { step: 6, name: 'Word Embedding', status: 'done', description: 'W2V, GloVe, FastText, BERT (mBERT)' },
-  { step: 7, name: 'Classification', status: 'done', description: 'SVM, Decision Tree, Naive Bayes' },
+  { step: 7, name: 'Classification', status: 'active', description: 'SVM, Decision Tree, Naive Bayes' },
+  { step: 8, name: 'Deployment', status: 'pending', description: 'Model inference API & Dashboard' },
+];
+
+export const fullModelComparison = [
+  // Decision Tree
+  { classifier: 'Decision Tree', representation: 'BoW', precision: 0.7812, recall: 0.7914, f1: 0.7812, accuracy: 0.7706 },
+  { classifier: 'Decision Tree', representation: 'N-Gram', precision: 0.7500, recall: 0.7740, f1: 0.7500, accuracy: 0.7535 },
+  { classifier: 'Decision Tree', representation: 'TF-IDF', precision: 0.7500, recall: 0.7740, f1: 0.7500, accuracy: 0.7535 },
+  { classifier: 'Decision Tree', representation: 'W2V Skip-Gram', precision: 0.7538, recall: 0.7898, f1: 0.7538, accuracy: 0.7599 },
+  { classifier: 'Decision Tree', representation: 'W2V CBOW', precision: 0.7231, recall: 0.7229, f1: 0.7231, accuracy: 0.7011 },
+  { classifier: 'Decision Tree', representation: 'FastText', precision: 0.7385, recall: 0.7540, f1: 0.7385, accuracy: 0.7192 },
+  { classifier: 'Decision Tree', representation: 'GloVe', precision: 0.7077, recall: 0.6988, f1: 0.7077, accuracy: 0.6956 },
+  { classifier: 'Decision Tree', representation: 'BERT', precision: 0.8146, recall: 0.7188, f1: 0.7288, accuracy: 0.7188 },
+
+  // SVM
+  { classifier: 'SVM', representation: 'BoW', precision: 0.7500, recall: 0.7740, f1: 0.7500, accuracy: 0.7535 },
+  { classifier: 'SVM', representation: 'N-Gram', precision: 0.8615, recall: 0.8703, f1: 0.8636, accuracy: 0.8546 },
+  { classifier: 'SVM', representation: 'TF-IDF', precision: 0.5846, recall: 0.5491, f1: 0.5846, accuracy: 0.5481 },
+  { classifier: 'SVM', representation: 'W2V Skip-Gram', precision: 0.9077, recall: 0.9175, f1: 0.9091, accuracy: 0.9049 },
+  { classifier: 'SVM', representation: 'W2V CBOW', precision: 0.8615, recall: 0.8772, f1: 0.8636, accuracy: 0.8575 },
+  { classifier: 'SVM', representation: 'FastText', precision: 0.8615, recall: 0.8703, f1: 0.8636, accuracy: 0.8546 },
+  { classifier: 'SVM', representation: 'GloVe', precision: 0.8462, recall: 0.8421, f1: 0.8485, accuracy: 0.8419 },
+  { classifier: 'SVM', representation: 'BERT', precision: 0.8531, recall: 0.8438, f1: 0.8427, accuracy: 0.8438 },
+
+  // Naive Bayes
+  { classifier: 'Naive Bayes', representation: 'BoW', precision: 0.7500, recall: 0.7740, f1: 0.7500, accuracy: 0.7535 },
+  { classifier: 'Naive Bayes', representation: 'N-Gram', precision: 0.7538, recall: 0.7898, f1: 0.7538, accuracy: 0.7599 },
+  { classifier: 'Naive Bayes', representation: 'TF-IDF', precision: 0.7385, recall: 0.7540, f1: 0.7385, accuracy: 0.7192 },
+  { classifier: 'Naive Bayes', representation: 'W2V Skip-Gram', precision: 0.6615, recall: 0.7352, f1: 0.6615, accuracy: 0.6709 },
+  { classifier: 'Naive Bayes', representation: 'W2V CBOW', precision: 0.5846, recall: 0.5491, f1: 0.5846, accuracy: 0.5481 },
+  { classifier: 'Naive Bayes', representation: 'FastText', precision: 0.5231, recall: 0.5007, f1: 0.5231, accuracy: 0.4752 },
+  { classifier: 'Naive Bayes', representation: 'GloVe', precision: 0.6769, recall: 0.7590, f1: 0.6769, accuracy: 0.6855 },
+  { classifier: 'Naive Bayes', representation: 'BERT', precision: 0.8297, recall: 0.8125, f1: 0.8131, accuracy: 0.8125 },
 ];

@@ -47,6 +47,9 @@ export const Content = () => (
                'mt': '$8',
                '@xsMax': {px: '$10'},
                'gap': '$12',
+               'width': '100%',
+               'maxWidth': '1400px',
+               'margin': '0 auto',
             }}
             direction={'column'}
          >
@@ -69,7 +72,7 @@ export const Content = () => (
                      'flexWrap': 'wrap',
                      'justifyContent': 'center',
                      '@sm': {
-                        flexWrap: 'nowrap',
+                        justifyContent: 'flex-start',
                      },
                   }}
                   direction={'row'}
@@ -77,6 +80,35 @@ export const Content = () => (
                   <CardDatasetInfo />
                   <CardEmbeddingModels />
                   <CardClassificationScore />
+               </Flex>
+            </Box>
+
+            {/* Model Detail Cards - Moved from sidebar */}
+            <Box>
+               <Text
+                  h3
+                  css={{
+                     'textAlign': 'center',
+                     '@sm': {
+                        textAlign: 'inherit',
+                     },
+                  }}
+               >
+                  Detail Model & Pipeline
+               </Text>
+               <Flex
+                  css={{
+                     'gap': '$10',
+                     'flexWrap': 'wrap',
+                     'justifyContent': 'center',
+                     '@sm': {
+                        justifyContent: 'flex-start',
+                     },
+                  }}
+                  direction={'row'}
+               >
+                  <CardPipelineStatus />
+                  <CardEmbeddingStats />
                </Flex>
             </Box>
 
@@ -135,49 +167,6 @@ export const Content = () => (
                </Box>
             </Box>
          </Flex>
-
-         {/* Right Section */}
-         <Box
-            css={{
-               'px': '$12',
-               'mt': '$8',
-               'height': 'fit-content',
-               '@xsMax': {px: '$10'},
-               'gap': '$6',
-               'overflow': 'hidden',
-            }}
-         >
-            <Text
-               h3
-               css={{
-                  'textAlign': 'center',
-                  '@lg': {
-                     textAlign: 'inherit',
-                  },
-               }}
-            >
-               Detail Model
-            </Text>
-            <Flex
-               direction={'column'}
-               justify={'center'}
-               css={{
-                  'gap': '$8',
-                  'flexDirection': 'row',
-                  'flexWrap': 'wrap',
-                  '@sm': {
-                     flexWrap: 'nowrap',
-                  },
-                  '@lg': {
-                     flexWrap: 'nowrap',
-                     flexDirection: 'column',
-                  },
-               }}
-            >
-               <CardPipelineStatus />
-               <CardEmbeddingStats />
-            </Flex>
-         </Box>
       </Flex>
 
       {/* Top TF-IDF Features Table */}
